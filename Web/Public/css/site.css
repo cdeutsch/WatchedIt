@@ -1,0 +1,129 @@
+﻿ /* Styles for header
+-----------------------------------------------------------*/
+#site-menu
+{
+    text-align: right;
+    font-size: 1.2em;
+}
+
+ /* Styles for controls
+-----------------------------------------------------------*/
+input[type="text"], input[type="password"], input.text, input.title, textarea, select 
+{
+    margin:0.1em 0 0.5em;
+}
+
+/* Tweak styles for Pages
+-----------------------------------------------------------*/
+.listingbox h4
+{
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+
+ /* Styles for messages
+-----------------------------------------------------------*/
+    
+.info
+{
+    background-color: #CCFFCC;
+    border-top: 1px solid #FFCC66;
+    border-bottom: 4px solid #FFCC66;
+    padding: 6px;
+    font-family: helvetica;
+    font-size: 1.1em;
+    text-align: center;
+    border-top-color: #006600;
+    border-bottom-color: #006600;
+    font-weight: bold;
+    color: #339933;
+    cursor:pointer;
+}
+.warning
+{
+    background-color: #FFFF99;
+    border-top: 1px solid #FFCC66;
+    border-bottom: 4px solid #FFCC66;
+    padding: 6px;
+    font-family: helvetica;
+    font-size: 0.9em;
+    text-align: center;
+    border-top-color: #CC9900;
+    border-bottom-color: #CC9900;
+    font-weight: bold;
+    color: #663300;
+    cursor:pointer;
+}
+.error
+{
+    background-color: #FFCC99;
+    border-top: 1px solid #FFCC66;
+    border-bottom: 4px solid #FFCC66;
+    padding: 4px;
+    font-family: helvetica;
+    font-size: 1.1em;
+    text-align: center;
+    border-top-color: #800000;
+    border-bottom-color: #800000;
+    font-weight: bold;
+    color: #990000;
+    cursor:pointer;
+}
+
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+body .field-validation-error
+{
+    color: #ff0000;
+}
+
+body .field-validation-valid
+{
+    display: none;
+}
+
+body .input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+body .validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+body .validation-summary-valid
+{
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label,
+.editor-label,
+.display-field,
+.editor-field
+{
+    margin: 0.5em 0;
+}
+
+.text-box
+{
+    width: 30em;
+}
+
+.text-box.multi-line
+{
+    height: 6.5em;
+}
+
+.tri-state
+{
+    width: 6em;
+}
+

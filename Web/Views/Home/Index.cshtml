@@ -1,0 +1,39 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Web.Controllers.WatchedList>
+
+@{
+    View.Title = "Home Page";
+}
+
+<div class="container"> 
+    <h2>Track What You've Watched</h2>
+    
+    <div id="series" class="column span-11 listingbox">
+        <h4>Series</h4>
+
+        <ul>
+            @foreach(var ss in Model.WatchedSerieses) { 
+                <li>
+                    @Html.ActionLink(ss.Series.SeriesName,"series", new { id = ss.SeriesId })
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div id="episodes" class="column span-11 listingbox">
+        <h4>Episodes</h4>
+
+        @if (Model.WatchedEpisodes != null) {
+            <ul>
+                @foreach(var ee in Model.WatchedEpisodes) { 
+                    <li>
+                        @Html.CheckBox("watched" + ee.WatchedEpisodeId, ee.Watched)
+                        <label for="watched@(ee.WatchedEpisodeId)">@ee.Episode.EpisodeTitle</label>
+                        
+                    </li>
+                }
+            </ul>
+        } else {
+            <p>[Select a Series]</p>
+        }
+    </div>
+</div>
