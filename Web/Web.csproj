@@ -69,6 +69,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="TvdbLib">
+      <HintPath>..\..\tvdblib\TvdbLib\bin\Debug\TvdbLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,6 +149,7 @@
     <Content Include="Public\css\jquery-ui.css" />
     <Content Include="Public\css\site.css" />
     <Content Include="Public\css\jayj.css" />
+    <Content Include="Public\scripts\watchedit.js" />
     <Content Include="Public\scripts\jquery.min.js" />
     <Content Include="Public\scripts\jquery-ui.min.js" />
     <Content Include="Web.config">

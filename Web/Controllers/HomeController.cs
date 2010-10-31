@@ -28,6 +28,16 @@ namespace Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Search(string searchSeriesName)
+        {
+            //search for series.
+            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
+            model.SearchResults = new List<string>() { "Big Bang", "Big" };
+
+            return View("Index", model);
+        }
+
         public ActionResult Series(long Id)
         {
             WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId(), Id);
@@ -46,6 +56,7 @@ namespace Web.Controllers
         public long SelectedSeriesId { get; set; }
         public List<WatchedSeries> WatchedSerieses { get; set; }
         public List<WatchedEpisode> WatchedEpisodes { get; set; }
+        public List<string> SearchResults { get; set; }
 
         public WatchedList(SiteDB db, long UserId)
         {

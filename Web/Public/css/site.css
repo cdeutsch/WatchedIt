@@ -6,6 +6,21 @@
     font-size: 1.2em;
 }
 
+#search
+{
+    margin-bottom: .2em;
+}
+#search label
+{
+    display: block;
+    font-size: larger;
+}
+
+#searchSeriesName
+{
+    width: 30em;
+}
+
  /* Styles for controls
 -----------------------------------------------------------*/
 input[type="text"], input[type="password"], input.text, input.title, textarea, select 
@@ -15,7 +30,11 @@ input[type="text"], input[type="password"], input.text, input.title, textarea, s
 
 /* Tweak styles for Pages
 -----------------------------------------------------------*/
-.listingbox h4
+.listingbox 
+{
+    margin-top: 1em;
+}
+.listingbox h4, #searchResults h5, #searchResults ul 
 {
     padding-bottom: 0;
     margin-bottom: 0;

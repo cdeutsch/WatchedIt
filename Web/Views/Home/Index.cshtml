@@ -7,6 +7,28 @@
 <div class="container"> 
     <h2>Track What You've Watched</h2>
     
+    <div id="search">
+        @using(Html.BeginForm("Search", "Home")) {
+            <label for="searchSeriesName">Find a Series to Watch:</label>
+            <input id="searchSeriesName" type="search" />
+            <input type="submit" value="Search" class="button" />
+        }
+    </div>
+
+    @if (Model.SearchResults != null) {
+    <div id="searchResults">
+        <h5>Select a Series to Watch</h5>
+
+        <ul>
+            @foreach(var sr in Model.SearchResults) { 
+                <li>
+                    @Html.ActionLink(sr,"watchseries", new { id = sr })
+                </li>
+            }
+        </ul>
+    </div>
+    }
+
     <div id="series" class="column span-11 listingbox">
         <h4>Series</h4>
 
