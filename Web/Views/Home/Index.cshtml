@@ -10,7 +10,7 @@
     <div id="search">
         @using(Html.BeginForm("Search", "Home")) {
             <label for="searchSeriesName">Find a Series to Watch:</label>
-            <input id="searchSeriesName" type="search" />
+            <input id="searchSeriesName" name="searchSeriesName" type="search" />
             <input type="submit" value="Search" class="button" />
         }
     </div>
@@ -19,13 +19,17 @@
     <div id="searchResults">
         <h5>Select a Series to Watch</h5>
 
-        <ul>
-            @foreach(var sr in Model.SearchResults) { 
-                <li>
-                    @Html.ActionLink(sr,"watchseries", new { id = sr })
-                </li>
-            }
-        </ul>
+        @using(Html.BeginForm("WatchSeries", "Home")) {
+            <ul>
+                @foreach(var sr in Model.SearchResults) { 
+                    <li>
+                        <input type="checkbox" name="SeriesIds" value="@sr.Id" />
+                        @sr.SeriesName
+                    </li>
+                }
+            </ul>
+            <input type="submit" value="Add to Series List" class="button" />
+        }
     </div>
     }
 
@@ -45,15 +49,26 @@
         <h4>Episodes</h4>
 
         @if (Model.WatchedEpisodes != null) {
-            <ul>
-                @foreach(var ee in Model.WatchedEpisodes) { 
-                    <li>
-                        @Html.CheckBox("watched" + ee.WatchedEpisodeId, ee.Watched)
-                        <label for="watched@(ee.WatchedEpisodeId)">@ee.Episode.EpisodeTitle</label>
-                        
+            using(Html.BeginForm("WatchEpisodes", "Home")) {
+                <ul>
+                    @foreach (var group in Model.WatchedEpisodes.GroupBy(oo => oo.Season)) {
+
+                    <li>Season @group.Key
+                        <ul>
+
+                            @foreach (var ee in group) { 
+                                <li>
+                                    <input type="checkbox" name="EpisodeIds" value="@ee.EpisodeId" />
+                                    @ee.EpisodeNumber - @ee.EpisodeTitle
+                                </li>
+                            }
+                        </ul>
                     </li>
-                }
-            </ul>
+
+                    }
+                </ul>
+                <input type="submit" value="Save Watched Episodes" class="button" />
+            }
         } else {
             <p>[Select a Series]</p>
         }

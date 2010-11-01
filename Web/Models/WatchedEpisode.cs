@@ -10,7 +10,7 @@ using Web.Infrastructure;
 namespace Web.Models
 {
 
-    public class WatchedEpisode : IAuditable
+    public class WatchedEpisode
     {
         //public User() 
         //{
@@ -23,8 +23,8 @@ namespace Web.Models
         public Episode Episode { get; set; }
         public long UserId { get; set; }
         public User User { get; set; }
-        public bool Watched { get; set; }
-        public DateTime Updated { get; set; }
+        //public bool Watched { get; set; }
+        //public DateTime Updated { get; set; }
         public DateTime Created { get; set; }
 
         //public void JustLoggedIn()

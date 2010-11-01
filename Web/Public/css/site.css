@@ -39,7 +39,10 @@ input[type="text"], input[type="password"], input.text, input.title, textarea, s
     padding-bottom: 0;
     margin-bottom: 0;
 }
-
+#searchResults ul, #episodes ul 
+{
+    margin-bottom: .5em;
+}
 
  /* Styles for messages
 -----------------------------------------------------------*/

@@ -20,6 +20,7 @@ namespace Web.Models
         [Key]
         public long EpisodeId { get; set; }
         public long SeriesId { get; set; }
+        public int TVDBEpisodeId { get; set; }
         public Series Series { get; set; }
         public int Season { get; set; }
         public int EpisodeNumber { get; set; }

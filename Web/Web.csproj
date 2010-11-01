@@ -87,6 +87,7 @@
     <Compile Include="Infrastructure\Authentication\UserAuthenticationService.cs" />
     <Compile Include="Infrastructure\Session\IUserSession.cs" />
     <Compile Include="Models\AuditableRepository.cs" />
+    <Compile Include="Models\SeriesRepository.cs" />
     <Compile Include="Models\IAuditable.cs" />
     <Compile Include="Infrastructure\Logging\EventLogLogger.cs" />
     <Compile Include="Infrastructure\Logging\ILogger.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="Infrastructure\Logging\NLogLogger.cs" />
     <Compile Include="Infrastructure\Session\WebUserSession.cs" />
     <Compile Include="Models\SiteDBTestInitializer.cs" />
+    <Compile Include="Models\TVDBRepository.cs" />
+    <Compile Include="Models\WatchedEpisodeStatus.cs" />
     <Compile Include="Models\WatchedRepository.cs" />
     <Compile Include="Models\WatchedSeries.cs" />
     <Compile Include="Models\WatchedEpisode.cs" />

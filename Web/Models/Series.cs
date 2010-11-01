@@ -19,6 +19,7 @@ namespace Web.Models
 
         [Key]
         public long SeriesId { get; set; }
+        public int TVDBSeriesId { get; set; }
         [StringLength(500)]
         public string SeriesName { get; set; }
         [StringLength(50)]
