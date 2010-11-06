@@ -37,11 +37,21 @@
 
         <div id="series" class="column span-8 listingbox">
             <h4>Series</h4>
+            @if (!Model.EditMode) {
+                @Html.ActionLink("[Edit]","Edit", null, new { @class = "edit" })
+            } else {
+                @Html.ActionLink("[Cancel]","Index", null, new { @class = "edit" })
+            }
 
             <ul>
                 @foreach(var ss in Model.WatchedSerieses) { 
                     <li@(ss.SeriesId == Model.SelectedSeriesId ? " class=selected" : "")>
                         @Html.ActionLink(ss.Series.SeriesName,"series", new { id = ss.SeriesId })
+                        @if (Model.EditMode) {
+                            using(Html.BeginForm("DeleteSeries", "Home", new { id = ss.SeriesId })) {
+                                <input type="submit" value="Delete" class="button delete" />
+                            }
+                        }
                     </li>
                 }
             </ul>

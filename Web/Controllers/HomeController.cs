@@ -29,6 +29,23 @@ namespace Web.Controllers
             return View(model);
         }
 
+        public ActionResult Edit()
+        {
+            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
+            model.EditMode = true;
+
+            return View("Index", model);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSeries(long Id)
+        {
+            //delete the series.
+            WatchedRepository.StopWatchingSeries(_db, _userSession.GetCurrentUserId(), Id);
+
+            return RedirectToAction("Edit");
+        }
+
         [HttpPost]
         public ActionResult Index(string searchSeriesName)
         {
@@ -36,7 +53,7 @@ namespace Web.Controllers
             WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
             model.SearchResults = TVDBRepository.GetTvdbHandler().SearchSeries(searchSeriesName);
             
-            //System.Web.Mvc.Html.FormExtensions.BeginForm(decimal,
+            //System.Web.Mvc.Html.LinkExtensions.ActionLink(
 
             return View(model);
         }
@@ -45,7 +62,8 @@ namespace Web.Controllers
         public ActionResult WatchSeries(string SeriesIds)
         {
             long userId = _userSession.GetCurrentUserId();
-            
+            long firstId = 0;
+
             //add list of seriesIds to Watch list.
             foreach (string sId in SeriesIds.Split(','))
             {
@@ -56,10 +74,24 @@ namespace Web.Controllers
                     Series series = SeriesRepository.AddSeries(_db, userId, iId);
                     //add this series to this user's watch list.
                     WatchedRepository.WatchSeries(_db, userId, series.SeriesId);
+
+                    //set first series if necessary.
+                    if (firstId == 0) 
+                    {
+                        firstId = series.SeriesId;
+                    }
                 }
             }
 
-            return RedirectToAction("Index");
+            //redirect to the first series.
+            if (firstId > 0)
+            {
+                return RedirectToAction("Series", new { id = firstId });
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -117,6 +149,7 @@ namespace Web.Controllers
 
     public class WatchedList
     {
+        public bool EditMode { get; set; }
         public long UserId { get; set; }
         public long SelectedSeriesId { get; set; }
         public List<WatchedSeries> WatchedSerieses { get; set; }

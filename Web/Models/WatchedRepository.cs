@@ -149,6 +149,25 @@ namespace Web.Models
             }
         }
 
+        public static void StopWatchingSeries(SiteDB db, long UserId, long SeriesId)
+        {
+            ////delete all watched episodes.
+            //grab all watched episodes for this series & user.
+            List<WatchedEpisode> lstWatchedEpisodes = db.WatchedEpisodes.Where(oo => oo.Episode.SeriesId == SeriesId && oo.UserId == UserId).ToList();
+
+            foreach (WatchedEpisode we in lstWatchedEpisodes)
+            {
+                db.WatchedEpisodes.Remove(we);
+            }
+
+            ////remove WatchedSeries record.
+            WatchedSeries watchedSeries = db.WatchedSerieses.SingleOrDefault(oo => oo.SeriesId == SeriesId && oo.UserId == UserId);
+            if (watchedSeries != null)
+            {
+                db.WatchedSerieses.Remove(watchedSeries);
+            }
+            db.SaveChanges();
+        }
         //public static void WatchSeries(SiteDB db, long UserId, long SeriesId)
         //{
         //    ////add all Series and Episdoes to the Series.

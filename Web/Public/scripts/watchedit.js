@@ -5,7 +5,7 @@
 
     $(document).ready(function () {
         $('.button').button();
-
+        
         //hijax episode check boxes.
         $('#EpisodeIds').live("click", function () {
             var jThis = $(this);
@@ -13,17 +13,17 @@
 
             //make ajax call to update db.
             $.ajax({
-                url: '/Home/WatchEpisode',
+                url: '/WatchEpisode',
                 type: 'POST',
                 data: JSON.stringify({ EpisodeId: jThis.val(), Watched: watched }),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function () {
                     if (watched) {
-                        jThis.parent('li').addClass('watched');
+                        jThis.parents('li:first').addClass('watched');
                     }
                     else {
-                        jThis.parent('li').removeClass('watched');
+                        jThis.parents('li:first').removeClass('watched');
                     }
                 },
                 error: handleError
@@ -31,7 +31,6 @@
 
             //update season checkbox.
             var jSeasonNumbers = jThis.parent().parent().parent().find('#SeasonNumbers');
-            console.log(jSeasonNumbers);
             jSeasonNumbers.attr('checked', jSeasonNumbers.parent().find('ul li input:not(:checked)').length == 0);
         });
 
@@ -52,7 +51,7 @@
             $(this).find('ul').before('<input type="checkbox" value="' + season + '" name="SeasonNumbers" id="SeasonNumbers"' + sChecked + ' />');
         });
 
-
+        $('input[type=checkbox]').checkbox();
 
         $('#SeasonNumbers').live("click", function () {
             //check/uncheck all children.
@@ -64,17 +63,17 @@
             jEpisodeInputs.attr('checked', watched);
             //make ajax call to update db.
             $.ajax({
-                url: '/Home/WatchSeason',
+                url: '/WatchSeason',
                 type: 'POST',
                 data: JSON.stringify({ SeriesId: seriesId, Season: season, Watched: watched }),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function () {
                     if (watched) {
-                        jEpisodeInputs.parent('li').addClass('watched');
+                        jEpisodeInputs.parents('li:first').addClass('watched');
                     }
                     else {
-                        jEpisodeInputs.parent('li').removeClass('watched');
+                        jEpisodeInputs.parents('li:first').removeClass('watched');
                     }
                 },
                 error: handleError
@@ -89,7 +88,6 @@
     }
 
     function handleError(xhr, err) {
-        $.pageLoading(true);
         $.flashError(xhr.responseText);
     };
 
