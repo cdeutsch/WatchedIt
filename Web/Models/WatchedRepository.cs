@@ -18,13 +18,17 @@ namespace Web.Models
 
         public static List<WatchedEpisodeStatus> GetAllEpisodes(SiteDB db, long UserId, long SeriesId)
         {
+
+            //can't seem to get outer joins to default values properly so get all watched episodes for this series/user.
+            List<long> lstWatchedEpisodeIds = db.WatchedEpisodes.Where(oo => oo.Episode.SeriesId == SeriesId && oo.UserId == UserId).Select(oo => oo.EpisodeId).ToList();
+
+
             //due to some LINQ to Entities limitations we have to generate an anonymous type and then transform into into a WatchedEpisodeStatus.
             //http://samuelmueller.com/2009/11/working-with-projections-and-dtos-in-wcf-data-services/
             return (from ee in db.Episodes
-                    from we in db.WatchedEpisodes.Where(oo => oo.EpisodeId == ee.EpisodeId && oo.UserId == UserId).DefaultIfEmpty()
                     where ee.SeriesId == SeriesId
-                    select new { Created = ee.Created, EpisodeId = ee.EpisodeId, EpisodeNumber = ee.EpisodeNumber, EpisodeTitle = ee.EpisodeTitle, Season = ee.Season, SeriesId = ee.SeriesId, TVDBEpisodeId = ee.TVDBEpisodeId, Updated = ee.Updated, UserId = UserId, Watched = (we.WatchedEpisodeId != null) }).ToList()
-                    .Select(ee => new WatchedEpisodeStatus { Created = ee.Created, EpisodeId = ee.EpisodeId, EpisodeNumber = ee.EpisodeNumber, EpisodeTitle = ee.EpisodeTitle, Season = ee.Season, SeriesId = ee.SeriesId, TVDBEpisodeId = ee.TVDBEpisodeId, Updated = ee.Updated, UserId = UserId, Watched = ee.Watched }).ToList();
+                    select ee).ToList()
+                    .Select(ee => new WatchedEpisodeStatus { Created = ee.Created, EpisodeId = ee.EpisodeId, EpisodeNumber = ee.EpisodeNumber, EpisodeTitle = ee.EpisodeTitle, Season = ee.Season, SeriesId = ee.SeriesId, TVDBEpisodeId = ee.TVDBEpisodeId, Updated = ee.Updated, UserId = UserId, Watched = (lstWatchedEpisodeIds.Contains(ee.EpisodeId)) }).ToList();
 
             //return db.WatchedEpisodes.Include("Episode").Where(oo => oo.UserId == UserId && oo.Episode.SeriesId == SeriesId).OrderBy(oo => oo.Episode.Season).OrderBy(oo => oo.Episode.EpisodeNumber);
         }
@@ -49,15 +53,86 @@ namespace Web.Models
                 watchedEpisode.EpisodeId = EpisodeId;
                 watchedEpisode.UserId = UserId;
                 watchedEpisode.Created = DateTime.Now;
+                db.WatchedEpisodes.Add(watchedEpisode);
             }
             //save changes.
             db.SaveChanges();
         }
 
-        public static void SetWatched(SiteDB db, string EpisodeIds, long UserId)
+        public static void SetWatched(SiteDB db, long SeriesId, long[] EpisodeIds, long UserId)
         {
-            //take the comma sperated list of Ids and mark them as watched. Any WatchedEpisodes not in the list should be marked as unwatched by removing them.
+            ////take the array of Ids and mark them as watched. Any WatchedEpisodes not in the list should be marked as unwatched by removing them.
 
+            //grab all watched episodes for this series & user.
+            List<WatchedEpisode> lstWatchedEpisodes = db.WatchedEpisodes.Where(oo => oo.Episode.SeriesId == SeriesId && oo.UserId == UserId).ToList();
+
+            if (EpisodeIds != null)
+            {
+                //loop threw new list of watched Episodes
+                foreach (long id in EpisodeIds)
+                {
+                    if (lstWatchedEpisodes.Count(oo => oo.EpisodeId == id) == 0)
+                    {
+                        //add new record.
+                        WatchedEpisode newWatchedEpisode = new WatchedEpisode();
+                        newWatchedEpisode.EpisodeId = id;
+                        newWatchedEpisode.UserId = UserId;
+                        newWatchedEpisode.Created = DateTime.Now;
+
+                        db.WatchedEpisodes.Add(newWatchedEpisode);
+                    }
+                }
+            }
+
+            //delete all records not in new list of watched Episodes
+            foreach (WatchedEpisode we in lstWatchedEpisodes.Where(oo => EpisodeIds == null || !EpisodeIds.Contains(oo.EpisodeId)))
+            {
+                db.WatchedEpisodes.Remove(we);
+            }
+            
+            //save.
+            db.SaveChanges();
+        }
+
+        public static void SetWatched(SiteDB db, long SeriesId, int Season, long UserId, bool Watched)
+        {
+            ////take the array of Ids and mark them as watched. Any WatchedEpisodes not in the list should be marked as unwatched by removing them.
+
+            //grab all watched episodes for this series, user, and Season.
+            List<WatchedEpisode> lstWatchedEpisodes = db.WatchedEpisodes.Where(oo => oo.Episode.SeriesId == SeriesId && oo.UserId == UserId && oo.Episode.Season == Season).ToList();
+
+            //get list of EpisodeIds based on Season.
+            List<long> lstEpisodeIds = new List<long>();
+
+            //get list of EpisodeIds based on Season if we're marking as Watched.
+            if (Watched)
+            {
+                lstEpisodeIds = db.Episodes.Where(oo => oo.SeriesId == SeriesId && oo.Season == Season).Select(oo => oo.EpisodeId).ToList();
+            }
+
+            //loop threw new list of watched Episodes
+            foreach (long id in lstEpisodeIds)
+            {
+                if (lstWatchedEpisodes.Count(oo => oo.EpisodeId == id) == 0)
+                {
+                    //add new record.
+                    WatchedEpisode newWatchedEpisode = new WatchedEpisode();
+                    newWatchedEpisode.EpisodeId = id;
+                    newWatchedEpisode.UserId = UserId;
+                    newWatchedEpisode.Created = DateTime.Now;
+
+                    db.WatchedEpisodes.Add(newWatchedEpisode);
+                }
+            }
+            
+            //delete all records not in new list of watched Episodes
+            foreach (WatchedEpisode we in lstWatchedEpisodes.Where(oo => !lstEpisodeIds.Contains(oo.EpisodeId)))
+            {
+                db.WatchedEpisodes.Remove(we);
+            }
+
+            //save.
+            db.SaveChanges();
         }
 
         public static void WatchSeries(SiteDB db, long UserId, long SeriesId)

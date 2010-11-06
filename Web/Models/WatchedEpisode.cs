@@ -17,15 +17,17 @@ namespace Web.Models
         //    //ID = Guid.NewGuid();
         //}
 
+        
+
         [Key]
         public long WatchedEpisodeId { get; set; }
         public long EpisodeId { get; set; }
         public Episode Episode { get; set; }
         public long UserId { get; set; }
         public User User { get; set; }
-        //public bool Watched { get; set; }
         //public DateTime Updated { get; set; }
         public DateTime Created { get; set; }
+
 
         //public void JustLoggedIn()
         //{

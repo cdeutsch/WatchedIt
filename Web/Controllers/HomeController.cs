@@ -30,15 +30,15 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string searchSeriesName)
+        public ActionResult Index(string searchSeriesName)
         {
             //search for series.
             WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
             model.SearchResults = TVDBRepository.GetTvdbHandler().SearchSeries(searchSeriesName);
             
-            //System.Web.Mvc.Html.InputExtensions.CheckBoxF
+            //System.Web.Mvc.Html.FormExtensions.BeginForm(decimal,
 
-            return View("Index", model);
+            return View(model);
         }
 
         [HttpPost]
@@ -59,25 +59,48 @@ namespace Web.Controllers
                 }
             }
 
-            //load up watched Series.
-            WatchedList model = new WatchedList(_db, userId);
-            
-            return View("Index", model);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult WatchEpisodes(string EpisodeIds)
+        public ActionResult WatchEpisodes(long SelectedSeriesId, long[] EpisodeIds)
         {
             long userId = _userSession.GetCurrentUserId();
 
-            WatchedRepository.SetWatched(_db, EpisodeIds, userId);
+            WatchedRepository.SetWatched(_db, SelectedSeriesId, EpisodeIds, userId);
 
-            //load up watched Series.
-            WatchedList model = new WatchedList(_db, userId);
-
-            return View("Index", model);
+            return RedirectToAction("Series", new { Id = SelectedSeriesId });
         }
 
+        /// <summary>
+        /// Make watched using Ajax.
+        /// </summary>
+        /// <param name="EpisodeId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult WatchEpisode(long EpisodeId, bool Watched)
+        {
+            long userId = _userSession.GetCurrentUserId();
+
+            WatchedRepository.SetWatched(_db, EpisodeId, userId, Watched);
+
+            return null;
+        }
+
+        /// <summary>
+        /// Make watched using Ajax.
+        /// </summary>
+        /// <param name="EpisodeId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult WatchSeason(long SeriesId, int Season, bool Watched)
+        {
+            long userId = _userSession.GetCurrentUserId();
+
+            WatchedRepository.SetWatched(_db, SeriesId, Season, userId, Watched);
+
+            return null;
+        }
 
         public ActionResult Series(long Id)
         {

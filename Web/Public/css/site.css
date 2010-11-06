@@ -21,6 +21,24 @@
     width: 30em;
 }
 
+.watched 
+{
+    text-decoration: line-through;
+}
+
+.selected a
+{
+    background-color: #0078AE;
+    color: White;
+}
+
+#episodes li
+{
+    margin: 0 0 .3em 0;
+    list-style: none;
+}
+
+
  /* Styles for controls
 -----------------------------------------------------------*/
 input[type="text"], input[type="password"], input.text, input.title, textarea, select 
@@ -46,7 +64,17 @@ input[type="text"], input[type="password"], input.text, input.title, textarea, s
 
  /* Styles for messages
 -----------------------------------------------------------*/
-    
+#busy 
+{
+    background-image: url('../images/busy.gif');
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 10px;
+    right: 50%;
+    z-index: 100;
+}
 .info
 {
     background-color: #CCFFCC;
