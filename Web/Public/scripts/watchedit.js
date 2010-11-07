@@ -30,8 +30,6 @@
                     }
 
                     //set line-thru
-
-                    console.log(jSeasonNumbers.is(':checked'));
                     if (jSeasonNumbers.is(':checked')) {
                         jThis.parents('li:eq(1)').addClass('watched');
                     }
@@ -71,9 +69,9 @@
             $(this).find('ul').before('<input type="checkbox" value="' + season + '" name="SeasonNumbers" id="SeasonNumbers"' + sChecked + ' />');
 
             //determine collapsible state.
-            var collapseState = 'ui-icon-plus';
+            var collapseState = 'ui-icon-minus';
             if (checked) {
-                collapseState = 'ui-icon-minus';
+                collapseState = 'ui-icon-plus';
                 //hide child list to start.
                 $(this).find('ul').hide();
             }
@@ -121,13 +119,13 @@
             var jThis = $(this);
             var jCollapsible = jThis.find('.collapsible');
             var jChildUL = jThis.parent().find('ul');
-            if (jCollapsible.hasClass('ui-icon-plus')) {
+            if (jCollapsible.hasClass('ui-icon-minus')) {
                 jChildUL.hide('blind');
-                jCollapsible.removeClass('ui-icon-plus').addClass('ui-icon-minus');
+                jCollapsible.removeClass('ui-icon-minus').addClass('ui-icon-plus');
             }
             else {
                 jChildUL.show('blind');
-                jCollapsible.removeClass('ui-icon-minus').addClass('ui-icon-plus');
+                jCollapsible.removeClass('ui-icon-plus').addClass('ui-icon-minus');
             }
         });
 

@@ -29,6 +29,18 @@ namespace Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Index(string searchSeriesName)
+        {
+            //search for series.
+            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
+            model.SearchResults = TVDBRepository.GetTvdbHandler().SearchSeries(searchSeriesName);
+
+            //System.Web.Mvc.Html.LinkExtensions.ActionLink(
+
+            return View(model);
+        }
+
         public ActionResult Edit()
         {
             WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
@@ -44,18 +56,6 @@ namespace Web.Controllers
             WatchedRepository.StopWatchingSeries(_db, _userSession.GetCurrentUserId(), Id);
 
             return RedirectToAction("Edit");
-        }
-
-        [HttpPost]
-        public ActionResult Index(string searchSeriesName)
-        {
-            //search for series.
-            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
-            model.SearchResults = TVDBRepository.GetTvdbHandler().SearchSeries(searchSeriesName);
-            
-            //System.Web.Mvc.Html.LinkExtensions.ActionLink(
-
-            return View(model);
         }
 
         [HttpPost]
@@ -142,6 +142,11 @@ namespace Web.Controllers
         }
 
         public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Privacy()
         {
             return View();
         }

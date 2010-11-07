@@ -255,7 +255,11 @@ body .validation-summary-valid
  * http://www.protofunc.com/scripts/jquery/checkbox-radiobutton/
  */
  
-.ui-icon-empty { background-position: -160px 0; }
+.ui-icon-empty  
+{
+    background-position: -160px 0; 
+    background-color: #E0E0E0;
+}
  
 /* Native widget or wrapped widget styles */
 .ui-checkbox, .ui-radio {

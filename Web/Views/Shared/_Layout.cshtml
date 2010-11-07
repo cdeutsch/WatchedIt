@@ -89,8 +89,8 @@
             @RenderBody()
         </div>
         <footer id="footer" class="span-24">
-            Copyright &copy;@DateTime.Now.Year Someone, Somewhere. See the 
-            <a href="#">Privacy Terms</a>
+            Copyright &copy;@DateTime.Now.Year <a href="mailto:cd@cdeutsch.com">CDeutsch</a>. See the 
+            @Html.ActionLink("Privacy Terms","Privacy","Home")
             For what we do with your information
         </footer>
     </div>
