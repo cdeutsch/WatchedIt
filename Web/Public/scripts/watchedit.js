@@ -4,12 +4,15 @@
 (function ($) {
 
     $(document).ready(function () {
-        $('.button').button();
-        
+
+        //let CSS know we have js.
+        $('body').addClass('has-js');
+
         //hijax episode check boxes.
         $('#EpisodeIds').live("click", function () {
             var jThis = $(this);
             var watched = jThis.is(':checked');
+            var jSeasonNumbers = jThis.parents('li:eq(1)').find('#SeasonNumbers');
 
             //make ajax call to update db.
             $.ajax({
@@ -25,13 +28,28 @@
                     else {
                         jThis.parents('li:first').removeClass('watched');
                     }
+
+                    //set line-thru
+
+                    console.log(jSeasonNumbers.is(':checked'));
+                    if (jSeasonNumbers.is(':checked')) {
+                        jThis.parents('li:eq(1)').addClass('watched');
+                    }
+                    else {
+                        jThis.parents('li:eq(1)').removeClass('watched');
+                    }
                 },
                 error: handleError
             });
 
             //update season checkbox.
-            var jSeasonNumbers = jThis.parent().parent().parent().find('#SeasonNumbers');
-            jSeasonNumbers.attr('checked', jSeasonNumbers.parent().find('ul li input:not(:checked)').length == 0);
+            if (jSeasonNumbers.parents('li').find('ul li input:not(:checked)').length == 0) {
+                jSeasonNumbers.checkbox('check');
+            }
+            else {
+                jSeasonNumbers.checkbox('uncheck');
+            }
+
         });
 
         //hide non-ajax submit.
@@ -41,17 +59,29 @@
         $('#episodes form > ul > li').each(function () {
             //add checkbox.
             var jThis = $(this);
-            var season = jThis.clone().find("*").remove().end().text().replace('Season', '').trim();
+            var season = jThis.find('.season').text().replace('Season', '').trim();
             //check if it should be checked (all episodes watched):
             var checked = jThis.find('input:not(:checked)').length == 0;
             var sChecked = '';
             if (checked) {
                 sChecked = ' checked="checked"';
+                //line-thru whole season.
+                jThis.addClass('watched');
             }
             $(this).find('ul').before('<input type="checkbox" value="' + season + '" name="SeasonNumbers" id="SeasonNumbers"' + sChecked + ' />');
-        });
 
-        $('input[type=checkbox]').checkbox();
+            //determine collapsible state.
+            var collapseState = 'ui-icon-plus';
+            if (checked) {
+                collapseState = 'ui-icon-minus';
+                //hide child list to start.
+                $(this).find('ul').hide();
+            }
+            //add collapsible button.
+            $(this).find('.season').prepend('<span class="collapsible ui-icon ' + collapseState + '"></span>');
+
+
+        });
 
         $('#SeasonNumbers').live("click", function () {
             //check/uncheck all children.
@@ -59,8 +89,13 @@
             var season = jThis.val();
             var seriesId = jThis.parents('#episodes').attr('data-seriesid');
             var watched = jThis.is(':checked');
-            var jEpisodeInputs = jThis.parent().find('li > input');
-            jEpisodeInputs.attr('checked', watched);
+            var jEpisodeInputs = jThis.parents('li').find('li input');
+            if (watched) {
+                jEpisodeInputs.checkbox('check');
+            }
+            else {
+                jEpisodeInputs.checkbox('uncheck'); //jEpisodeInputs.checkbox().uncheck(); //.attr('checked', watched);
+            }
             //make ajax call to update db.
             $.ajax({
                 url: '/WatchSeason',
@@ -70,22 +105,39 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function () {
                     if (watched) {
-                        jEpisodeInputs.parents('li:first').addClass('watched');
+                        jEpisodeInputs.parents('li').addClass('watched');
                     }
                     else {
-                        jEpisodeInputs.parents('li:first').removeClass('watched');
+                        jEpisodeInputs.parents('li').removeClass('watched');
                     }
                 },
                 error: handleError
             });
 
         });
+
+        //make season headers collapsible.
+        $('.season').live("click", function () {
+            var jThis = $(this);
+            var jCollapsible = jThis.find('.collapsible');
+            var jChildUL = jThis.parent().find('ul');
+            if (jCollapsible.hasClass('ui-icon-plus')) {
+                jChildUL.hide('blind');
+                jCollapsible.removeClass('ui-icon-plus').addClass('ui-icon-minus');
+            }
+            else {
+                jChildUL.show('blind');
+                jCollapsible.removeClass('ui-icon-minus').addClass('ui-icon-plus');
+            }
+        });
+
+
+
+        //style buttons and checkboxes
+        $('.button').button();
+        $('input[type=checkbox]').checkbox();
+
     });
-
-
-    function updateSeasonChecked(target) {
-
-    }
 
     function handleError(xhr, err) {
         $.flashError(xhr.responseText);

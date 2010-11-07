@@ -154,6 +154,7 @@
     <Content Include="Public\css\jayj.css" />
     <Content Include="Public\scripts\jquery.ajaxui.js" />
     <Content Include="Public\scripts\json2.min.js" />
+    <Content Include="Public\scripts\ui.checkbox.js" />
     <Content Include="Public\scripts\watchedit.js" />
     <Content Include="Public\scripts\jquery.min.js" />
     <Content Include="Public\scripts\jquery-ui.min.js" />

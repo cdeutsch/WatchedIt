@@ -12,6 +12,16 @@
     color: #333333;
 }
 
+.listingbox li 
+{
+    font-size: 1.1em;
+}
+
+.listingbox li li
+{
+    font-size: .9em;
+}
+
 #site-menu
 {
     text-align: right;
@@ -55,6 +65,44 @@
     display: inline-block;
 }
 
+.ui-button.delete 
+{
+    font-size:0.8em;
+    padding:0.1em 0.2em;
+    background:url("images/ui-bg_glass_100_cc0000_1x400.png") repeat-x scroll 50% 50% #CC0000;
+    border:1px solid #E3A1A1;
+    color:#FFFFFF;
+}
+
+.ui-state-hover.delete
+{
+    border: 1px solid #cc0000; 
+    background: #e3a1a1 url(images/ui-bg_highlight-hard_100_e3a1a1_1x100.png) 50% 50% repeat-x;
+    color: #cc0000; 
+}
+
+.collapsible
+{
+    padding: 0;
+    font-size: 22px;
+    font-weight: bold;
+    border:1px dotted;
+    color:#0078AE;
+    display:inline-block;
+    font-size:22px;
+    font-weight:bold;
+    height:17px;
+    width:17px;
+    line-height:1;
+    margin:0;
+    vertical-align: middle;
+    margin-right: .3em;
+}
+
+.has-js .season 
+{
+    cursor: pointer;
+}
 
  /* Styles for controls
 -----------------------------------------------------------*/
@@ -220,8 +268,8 @@ body .validation-summary-valid
 }
 /* wrapped widget only */
 span.ui-checkbox, span.ui-radio {
-	width: 12px;
-	height: 11px;
+	width: 17px;
+	height: 16px;
 	position: relative;
 	display: inline;
 	display: inline-block;
@@ -253,7 +301,7 @@ v\:roundrect, v\:fill, v\:stroke {
 	visibility: visible;
 	left: 6px;
 	top: 5px;
-	margin: -8px 0px 0px -8px;
+	margin: -6px 0px 0px -6px;
 }
 /* Style the inner control so it doesn't affect webkit on focus */
 .ui-checkbox input, .ui-radio input {

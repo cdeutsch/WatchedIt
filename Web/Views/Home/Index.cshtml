@@ -58,14 +58,14 @@
         </div>
 
         <div id="episodes" class="column span-11 listingbox" data-seriesid="@Model.SelectedSeriesId">
-            <h4>Episodes</h4>
+            <h4>@Model.GetSelectedSeriesFriendlyNameOrDefault("Episodes")</h4>
 
             @if (Model.WatchedEpisodes != null) {
                 using(Html.BeginForm("WatchEpisodes", "Home", new { SelectedSeriesId = Model.SelectedSeriesId })) {
                     <ul>
                         @foreach (var group in Model.WatchedEpisodes.GroupBy(oo => oo.Season)) {
 
-                        <li>Season @group.Key
+                        <li><span class="season">Season @group.Key</span>
                             <ul>
 
                                 @foreach (var ee in group) { 

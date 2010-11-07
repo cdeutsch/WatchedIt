@@ -168,5 +168,34 @@ namespace Web.Controllers
             WatchedSerieses = WatchedRepository.GetAllSeries(db, UserId).ToList();
             WatchedEpisodes = WatchedRepository.GetAllEpisodes(db, UserId, SeriesId);
         }
+
+        public string SelectedSeriesFriendlyName
+        {
+            get
+            {
+                WatchedSeries ws = WatchedSerieses.SingleOrDefault(oo => oo.SeriesId == SelectedSeriesId);
+                if (ws != null)
+                {
+                    return ws.Series.SeriesName;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        public string GetSelectedSeriesFriendlyNameOrDefault(string Default)
+        {
+            string seriesName = SelectedSeriesFriendlyName;
+            if (!string.IsNullOrEmpty(seriesName))
+            {
+                return seriesName;
+            }
+            else
+            {
+                return Default;
+            }
+        }
     }
 }
