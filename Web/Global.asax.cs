@@ -105,6 +105,9 @@ namespace Web
         {
             Exception lastException = Server.GetLastError();
             Logger.Fatal(lastException);
+            // Log the exception.
+            Elmah.ErrorSignal.FromCurrentContext().Raise(lastException);
+
         }
 
         public ILogger Logger

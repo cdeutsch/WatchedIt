@@ -52,6 +52,11 @@
 {
     background-color: #0078AE;
     color: White;
+    padding: .1em;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -khtml-border-radius: 6px;
+    -webkit-border-radius: 6px;
 }
 
 #episodes li
@@ -259,6 +264,11 @@ body .validation-summary-valid
 {
     background-position: -160px 0; 
     background-color: #E0E0E0;
+}
+
+.ui-icon-empty:hover 
+{
+    background-color: transparent;
 }
  
 /* Native widget or wrapped widget styles */

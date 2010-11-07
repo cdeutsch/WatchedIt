@@ -25,7 +25,7 @@
                 <ul>
                     @foreach(var sr in Model.SearchResults) { 
                         <li>
-                            <input type="checkbox" name="SeriesIds" value="@sr.Id" />
+                            <input type="checkbox" id="SeriesIds" name="SeriesIds" value="@sr.Id" />
                             @sr.SeriesName
                         </li>
                     }
@@ -81,6 +81,9 @@
                     </ul>
                     Html.HiddenFor(oo => oo.SelectedSeriesId);
                     <input id="btnSaveWatched" type="submit" value="Save Watched Episodes" class="button" />
+                }
+                if (Model.WatchedEpisodes.Count == 0) {
+                    <p>No Episodes Found.</p>
                 }
             } else {
                 <p>[Select a Series]</p>

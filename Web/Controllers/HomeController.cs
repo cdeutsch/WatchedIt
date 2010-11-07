@@ -59,27 +59,23 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult WatchSeries(string SeriesIds)
+        public ActionResult WatchSeries(int[] SeriesIds)
         {
             long userId = _userSession.GetCurrentUserId();
             long firstId = 0;
 
             //add list of seriesIds to Watch list.
-            foreach (string sId in SeriesIds.Split(','))
+            foreach (int iId in SeriesIds)
             {
-                int iId;
-                if (int.TryParse(sId, out iId))
-                {
-                    //make sure each Series is in our local db.
-                    Series series = SeriesRepository.AddSeries(_db, userId, iId);
-                    //add this series to this user's watch list.
-                    WatchedRepository.WatchSeries(_db, userId, series.SeriesId);
+                //make sure each Series is in our local db.
+                Series series = SeriesRepository.AddSeries(_db, userId, iId);
+                //add this series to this user's watch list.
+                WatchedRepository.WatchSeries(_db, userId, series.SeriesId);
 
-                    //set first series if necessary.
-                    if (firstId == 0) 
-                    {
-                        firstId = series.SeriesId;
-                    }
+                //set first series if necessary.
+                if (firstId == 0) 
+                {
+                    firstId = series.SeriesId;
                 }
             }
 

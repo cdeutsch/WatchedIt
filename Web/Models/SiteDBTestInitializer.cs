@@ -12,7 +12,7 @@ using Web.Infrastructure.Authentication;
 namespace Web.Models
 {
 
-    public class SiteDBTestInitializer : RecreateDatabaseIfModelChanges<SiteDB>
+    public class SiteDBTestInitializer : CreateDatabaseOnlyIfNotExists<SiteDB>
     {
         IAuthenticationService _authService;
 
