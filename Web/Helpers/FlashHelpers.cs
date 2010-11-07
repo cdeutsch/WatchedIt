@@ -35,10 +35,7 @@ namespace System.Web.Mvc {
             if (!String.IsNullOrEmpty(message)) {
                 sb.AppendLine("<script>");
                 sb.AppendLine("$(document).ready(function() {");
-                sb.AppendFormat("$('#flash').html('{0}');", message);
-                sb.AppendFormat("$('#flash').toggleClass('{0}');", className);
-                sb.AppendLine("$('#flash').slideDown('slow');");
-                sb.AppendLine("$('#flash').click(function(){$('#flash').toggle('highlight')});");
+                sb.AppendFormat("$.flashBase('{0}','{1}');", className, message);
                 sb.AppendLine("});");
                 sb.AppendLine("</script>");
             }

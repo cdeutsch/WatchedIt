@@ -43,6 +43,12 @@
     <Reference Include="Microsoft.Data.Entity.CTP, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Microsoft.Data.Entity.CTP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\lib\Ninject.dll</HintPath>
@@ -52,9 +58,21 @@
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages" />
-    <Reference Include="System.Web.Helpers" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -63,6 +81,11 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -74,6 +97,9 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="TvdbLib">
       <HintPath>..\..\tvdblib\TvdbLib\bin\Debug\TvdbLib.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -109,8 +135,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporting\ReportingDB.cs" />
-    <Compile Include="Reporting\UserActivity.cs" />
+    <Compile Include="Models\UserActivity.cs" />
     <Compile Include="Utilities\NinjectResolver.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +181,7 @@
     <Content Include="Public\css\jquery-ui.css" />
     <Content Include="Public\css\site.css" />
     <Content Include="Public\css\jayj.css" />
+    <Content Include="Public\images\busy.gif" />
     <Content Include="Public\scripts\jquery.ajaxui.js" />
     <Content Include="Public\scripts\json2.min.js" />
     <Content Include="Public\scripts\ui.checkbox.js" />
@@ -190,17 +216,17 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Public\images\" />
+    <Folder Include="App_Data\elmah\" />
+    <Folder Include="App_Data\TVDB\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Session\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Public\css\fonts\Chunkfive.eot" />
-    <None Include="Public\css\fonts\Chunkfive.otf" />
-    <None Include="Public\css\fonts\Chunkfive.svg" />
-    <None Include="Public\css\fonts\Chunkfive.woff" />
+    <Content Include="Public\css\fonts\Chunkfive.eot" />
+    <Content Include="Public\css\fonts\Chunkfive.otf" />
+    <Content Include="Public\css\fonts\Chunkfive.svg" />
+    <Content Include="Public\css\fonts\Chunkfive.woff" />
     <Content Include="Views\Home\Privacy.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

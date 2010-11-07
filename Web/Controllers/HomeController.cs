@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Web.Reporting;
 using Web.Models;
 using Web.Infrastructure.Session;
 using TvdbLib.Data;

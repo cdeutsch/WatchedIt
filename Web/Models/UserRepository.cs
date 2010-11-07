@@ -28,6 +28,14 @@ namespace Web.Models
             {
                 throw new InvalidOperationException("Passwords do not match.");
             }
+            else if (db.Users.SingleOrDefault(oo => oo.Email == Email) != null)
+            {
+                throw new InvalidOperationException("This email address is already in use.");
+            }
+            else if (db.Users.SingleOrDefault(oo => oo.Username == Username) != null)
+            {
+                throw new InvalidOperationException("This username is already in use.");
+            }
             else
             {
                 try

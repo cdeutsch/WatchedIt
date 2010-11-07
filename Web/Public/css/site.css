@@ -262,13 +262,13 @@ body .validation-summary-valid
  
 .ui-icon-empty  
 {
+    background: #79c9ec url(images/ui-bg_glass_75_79c9ec_1x400.png) 50% 50% repeat-x;
     background-position: -160px 0; 
-    background-color: #E0E0E0;
 }
 
 .ui-icon-empty:hover 
 {
-    background-color: transparent;
+    background: #0078ae url(images/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x;
 }
  
 /* Native widget or wrapped widget styles */

@@ -10,7 +10,6 @@ using Site.Infrastructure.Logging;
 using Web.Infrastructure.Authentication;
 using Web.Models;
 using Mvc3Ninject.Utility;
-using Web.Reporting;
 using System.Data.Entity.Infrastructure;
 using Web.Infrastructure.Session;
 namespace Web
@@ -38,6 +37,12 @@ namespace Web
                 "Logout", // Route name
                 "logout", // URL with parameters
                 new { controller = "Session", action = "Delete" } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "Session", // Route name
+                "session/{action}/{id}", // URL with parameters
+                new { controller = "Session", action = "Create", id = UrlParameter.Optional } // Parameter defaults
             );
 
             routes.MapRoute(
@@ -81,10 +86,10 @@ namespace Web
         {
             //Database.SetInitializer<SiteDB>(new AlwaysRecreateDatabase<SiteDB>());
             //Database.SetInitializer<ReportingDB>(new AlwaysRecreateDatabase<ReportingDB>());
-            
-            //Database.SetInitializer<SiteDB>(new RecreateDatabaseIfModelChanges<SiteDB>());
-            Database.SetInitializer<SiteDB>(new SiteDBTestInitializer(new UserAuthenticationService())); //seed test data
-            Database.SetInitializer<ReportingDB>(new RecreateDatabaseIfModelChanges<ReportingDB>());
+
+            Database.SetInitializer<SiteDB>(new CreateDatabaseOnlyIfNotExists<SiteDB>());
+            //Database.SetInitializer<SiteDB>(new SiteDBTestInitializer(new UserAuthenticationService())); //seed test data
+            //Database.SetInitializer<ReportingDB>(new RecreateDatabaseIfModelChanges<ReportingDB>());
 
             SetupDependencyInjection();
 
@@ -107,7 +112,6 @@ namespace Web
             Logger.Fatal(lastException);
             // Log the exception.
             Elmah.ErrorSignal.FromCurrentContext().Raise(lastException);
-
         }
 
         public ILogger Logger

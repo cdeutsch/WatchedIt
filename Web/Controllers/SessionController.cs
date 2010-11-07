@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Web.Models;
 using Web.Infrastructure.Authentication;
-using Web.Reporting;
 using System.ComponentModel.DataAnnotations;
 
 namespace Web.Controllers
@@ -16,14 +15,12 @@ namespace Web.Controllers
 
         IAuthenticationService _authService;
         SiteDB _db;
-        ReportingDB _reportingDb;
         UserActivity _log;
         public SessionController(IAuthenticationService authService)
         {
             _db = new SiteDB();
             _authService = authService;
-            _reportingDb = new ReportingDB();
-            _log = new UserActivity(_reportingDb);
+            _log = new UserActivity(_db);
         }
 
         //

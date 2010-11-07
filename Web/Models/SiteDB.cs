@@ -21,7 +21,8 @@ namespace Web.Models
         public DbSet<User> Users { get; set; }
         public DbSet<WatchedEpisode> WatchedEpisodes { get; set; }
         public DbSet<WatchedSeries> WatchedSerieses { get; set; }
-        
+        public DbSet<UserActivity> UserActivitys { get; set; }
+
         public ObjectContext Context
         {
             get
@@ -34,5 +35,6 @@ namespace Web.Models
         {
             
         }
+
     }
 }
