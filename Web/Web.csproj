@@ -121,9 +121,9 @@
     <Content Include="Public\css\images\cancel.png" />
     <Content Include="Public\css\images\content_bg.png" />
     <Content Include="Public\css\images\quote.png" />
-    <Content Include="Public\css\images\thumbnail.jpg" />
     <Content Include="Public\css\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Public\css\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Public\css\images\ui-bg_glass_100_cc0000_1x400.png" />
     <Content Include="Public\css\images\ui-bg_glass_45_000000_1x400.png" />
     <Content Include="Public\css\images\ui-bg_glass_45_0078ae_1x400.png" />
     <Content Include="Public\css\images\ui-bg_glass_55_f8da4e_1x400.png" />
@@ -135,6 +135,7 @@
     <Content Include="Public\css\images\ui-bg_gloss-wave_50_212121_500x100.png" />
     <Content Include="Public\css\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
     <Content Include="Public\css\images\ui-bg_glow-ball_50_0078ae_600x600.png" />
+    <Content Include="Public\css\images\ui-bg_highlight-hard_100_e3a1a1_1x100.png" />
     <Content Include="Public\css\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
     <Content Include="Public\css\images\ui-icons_000000_256x240.png" />
     <Content Include="Public\css\images\ui-icons_0078ae_256x240.png" />
