@@ -88,12 +88,25 @@
 
             @RenderBody()
         </div>
-        <footer id="footer" class="span-24">
+        <footer id="footer" class="span-24">            
             Copyright &copy;@DateTime.Now.Year <a href="mailto:cd@cdeutsch.com">CDeutsch</a>. See the 
             @Html.ActionLink("Privacy Terms","Privacy","Home")
-            For what we do with your information
+            for what we do with your information. <br />
+            TV listings provided by <a href="http://thetvdb.com/">TheTVDB.com</a> please consider contributing.
         </footer>
     </div>
+
+    <!-- asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet -->
+    <script>
+        var _gaq = [['_setAccount', 'UA-15946659-3'], ['_trackPageview']];
+        (function(d, t) {
+            var g = d.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            g.async = true;
+            g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s);
+        })(document, 'script');
+    </script>
 </body>
 </html>
 

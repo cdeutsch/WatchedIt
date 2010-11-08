@@ -1,5 +1,18 @@
 ﻿ /* Styles for header
 -----------------------------------------------------------*/
+h4.imgHeader, h4.signUp
+{
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-family: 'ChunkFive Regular', Arial, Helvetica, sans-serif;
+}
+
+h4.signUp 
+{
+    margin-bottom: 2em;
+    text-decoration: underline;    
+}
+
 .listingbox h4
 {
     display: inline-block;
