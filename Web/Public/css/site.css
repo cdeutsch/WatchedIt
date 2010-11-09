@@ -122,6 +122,20 @@ h4.signUp
     cursor: pointer;
 }
 
+footer .hosting span
+{
+    vertical-align: top;
+}
+
+#footer .hosting a:hover
+{
+    background: none;
+    outline: transparent none 0;
+    border: 0 none transparent;
+    
+}
+
+
  /* Styles for controls
 -----------------------------------------------------------*/
 input[type="text"], input[type="password"], input.text, input.title, textarea, select 

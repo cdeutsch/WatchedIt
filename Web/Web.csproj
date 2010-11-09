@@ -182,6 +182,7 @@
     <Content Include="Public\css\site.css" />
     <Content Include="Public\css\jayj.css" />
     <Content Include="Public\images\busy.gif" />
+    <Content Include="Public\images\implex.gif" />
     <Content Include="Public\images\screen1.png" />
     <Content Include="Public\images\screen2.png" />
     <Content Include="Public\scripts\jquery.ajaxui.js" />

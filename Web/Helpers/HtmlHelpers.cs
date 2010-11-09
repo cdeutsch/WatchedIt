@@ -51,7 +51,7 @@ namespace System.Web.Mvc {
         public static HtmlString Image(this HtmlHelper helper, string fileName, string attributes)
         {
             fileName = string.Format("{0}/{1}/{2}", pubDir, imageDir, fileName);
-            return new HtmlString(string.Format(@"<img src=""{0}"" ""{1}"" />", helper.AttributeEncode(fileName), helper.AttributeEncode(attributes)));
+            return new HtmlString(string.Format(@"<img src=""{0}"" {1} />", helper.AttributeEncode(fileName), helper.AttributeEncode(attributes)));
         }
     }
 }
