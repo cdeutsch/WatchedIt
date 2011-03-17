@@ -6241,3 +6241,41 @@ Stack Trace :   at System.Web.StaticFileHandler.GetFileInfo(String virtualPathWi
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 TargetSite :System.IO.FileInfo GetFileInfo(System.String, System.String, System.Web.HttpResponse)
 11/09/2010 07:35:14: App is shutting down
+01/17/2011 14:12:31: App is starting
+01/17/2011 14:13:20: 
+Error in Path :/
+Raw Url :/
+Message :A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+Source :.Net SqlClient Data Provider
+Stack Trace :   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.SqlClient.SqlProviderServices.UsingConnection(SqlConnection sqlConnection, Action`1 act)
+   at System.Data.SqlClient.SqlProviderServices.UsingMasterConnection(SqlConnection sqlConnection, Action`1 act)
+   at System.Data.SqlClient.SqlProviderServices.GetDbProviderManifestToken(DbConnection connection)
+   at System.Data.Common.DbProviderServices.GetProviderManifestToken(DbConnection connection)
+TargetSite :Void OnError(System.Data.SqlClient.SqlException, Boolean)
+01/17/2011 14:13:24: 
+Error in Path :/favicon.ico
+Raw Url :/favicon.ico
+Message :File does not exist.
+Source :System.Web
+Stack Trace :   at System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   at System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   at System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+TargetSite :System.IO.FileInfo GetFileInfo(System.String, System.String, System.Web.HttpResponse)
+01/17/2011 14:37:31: App is shutting down

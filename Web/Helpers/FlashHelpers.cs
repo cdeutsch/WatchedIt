@@ -17,10 +17,16 @@ namespace System.Web.Mvc {
             controller.TempData["error"] = message;
         }
 
+        public static void FlashErrorInValidationSummary(this Controller controller, string message)
+        {
+            controller.TempData["errorValidationSummary"] = true;
+        }
+
         public static HtmlString Flash(this HtmlHelper helper) {
 
             var message = "";
             var className = "";
+            var useValidationSummary = false;
             if (helper.ViewContext.TempData["info"] != null) {
                 message =helper.ViewContext.TempData["info"].ToString();
                 className = "info";
@@ -30,12 +36,22 @@ namespace System.Web.Mvc {
             } else if (helper.ViewContext.TempData["error"] != null) {
                 message = helper.ViewContext.TempData["error"].ToString();
                 className = "error";
+            } else if (helper.ViewContext.TempData["errorValidationSummary"] != null) {
+                useValidationSummary = true;
+                className = "error";
             }
             var sb = new StringBuilder();
             if (!String.IsNullOrEmpty(message)) {
                 sb.AppendLine("<script>");
                 sb.AppendLine("$(document).ready(function() {");
-                sb.AppendFormat("$.flashBase('{0}','{1}');", className, message);
+                if (useValidationSummary)
+                {
+                    sb.AppendFormat("$.flashBase('{0}',$('.validation-summary-errors').html());", className);
+                }
+                else
+                {
+                    sb.AppendFormat("$.flashBase('{0}','{1}');", className, message);
+                }
                 sb.AppendLine("});");
                 sb.AppendLine("</script>");
             }
