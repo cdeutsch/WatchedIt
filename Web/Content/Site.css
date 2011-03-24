@@ -1,0 +1,365 @@
+﻿ /* Styles for header
+-----------------------------------------------------------*/
+h4.imgHeader, h4.signUp
+{
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-family: 'ChunkFive Regular', Arial, Helvetica, sans-serif;
+}
+
+h4.signUp 
+{
+    margin-bottom: 2em;
+    text-decoration: underline;    
+}
+
+.listingbox h4
+{
+    display: inline-block;
+    margin-right: .2em;
+}
+.listingbox .edit 
+{
+    font-size: 0.8em;
+    vertical-align: top;
+    color: #333333;
+}
+
+.listingbox li 
+{
+    font-size: 1.1em;
+}
+
+.listingbox li li
+{
+    font-size: .9em;
+}
+
+#site-menu
+{
+    text-align: right;
+    font-size: 1.2em;
+}
+
+#search
+{
+    margin-bottom: .2em;
+}
+#search label
+{
+    display: block;
+    font-size: larger;
+}
+
+#searchSeriesName
+{
+    width: 30em;
+}
+
+.watched 
+{
+    text-decoration: line-through;
+}
+
+.selected a
+{
+    background-color: #0078AE;
+    color: White;
+    padding: .1em;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -khtml-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+
+#episodes li
+{
+    margin: 0 0 .3em 0;
+    list-style: none;
+}
+
+#series form 
+{
+    display: inline-block;
+}
+
+.ui-button.delete 
+{
+    font-size:0.8em;
+    padding:0.1em 0.2em;
+    background:url("images/ui-bg_glass_100_cc0000_1x400.png") repeat-x scroll 50% 50% #CC0000;
+    border:1px solid #E3A1A1;
+    color:#FFFFFF;
+}
+
+.ui-state-hover.delete
+{
+    border: 1px solid #cc0000; 
+    background: #e3a1a1 url(images/ui-bg_highlight-hard_100_e3a1a1_1x100.png) 50% 50% repeat-x;
+    color: #cc0000; 
+}
+
+.collapsible
+{
+    padding: 0;
+    font-size: 22px;
+    font-weight: bold;
+    border:1px dotted;
+    color:#0078AE;
+    display:inline-block;
+    font-size:22px;
+    font-weight:bold;
+    height:17px;
+    width:17px;
+    line-height:1;
+    margin:0;
+    vertical-align: middle;
+    margin-right: .3em;
+}
+
+.has-js .season 
+{
+    cursor: pointer;
+}
+
+footer .hosting span
+{
+    vertical-align: top;
+}
+
+#footer .hosting a:hover
+{
+    background: none;
+    outline: transparent none 0;
+    border: 0 none transparent;
+    
+}
+
+
+
+
+
+
+
+
+
+
+/* simplified form styles
+-----------------------------------------------------------*/
+form .field
+{
+    margin-bottom: .2em;
+}
+form .field label 
+{
+    display: block;
+}
+form .field label, form .buttons
+{
+    margin: 0 0 .1em 0;
+}
+
+fieldset 
+{
+    border:1px solid #ddd;
+    padding:0 1.4em 1.4em 1.4em;
+    margin:0 0 1.5em 0;
+}
+legend 
+{
+    font-size:1.2em;
+    font-weight: bold;
+}
+textarea 
+{
+    min-height: 75px;
+}
+
+
+/* Styles for flash messages
+-----------------------------------------------------------*/
+/* hide validation summaries if the user has javascript in which case we'll "flash" the messages */
+.flash 
+{
+    display: none;
+}
+.no-js .flash 
+{
+    display: block;
+}
+
+#flash li
+{
+    list-style: none;
+}
+
+#busy 
+{
+    background-image: url('images/busy.gif');
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 10px;
+    right: 50%;
+    z-index: 100;
+}
+.info
+{
+    background-color: #CCFFCC;
+    border-top: 1px solid #FFCC66;
+    border-bottom: 4px solid #FFCC66;
+    padding: 6px;
+    font-family: helvetica;
+    font-size: 1.1em;
+    text-align: center;
+    border-top-color: #006600;
+    border-bottom-color: #006600;
+    font-weight: bold;
+    color: #339933;
+    cursor:pointer;
+}
+.warning
+{
+    background-color: #FFFF99;
+    border-top: 1px solid #FFCC66;
+    border-bottom: 4px solid #FFCC66;
+    padding: 6px;
+    font-family: helvetica;
+    font-size: 0.9em;
+    text-align: center;
+    border-top-color: #CC9900;
+    border-bottom-color: #CC9900;
+    font-weight: bold;
+    color: #663300;
+    cursor:pointer;
+}
+.error
+{
+    background-color: #FFCC99;
+    border-top: 1px solid #FFCC66;
+    border-bottom: 4px solid #FFCC66;
+    padding: 4px;
+    font-family: helvetica;
+    font-size: 1.1em;
+    text-align: center;
+    border-top-color: #800000;
+    border-bottom-color: #800000;
+    font-weight: bold;
+    color: #990000;
+    cursor:pointer;
+}
+
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+
+/*
+ * jQuery UI Checkbox 0.1
+ *
+ * Copyright (c) 2009 Jeremy Lea <reg@openpave.org>
+ * Dual licensed under the MIT and GPL licenses.
+ *
+ * http://docs.jquery.com/Licensing
+ *
+ * Based loosely on plugin by alexander.farkas.
+ * http://www.protofunc.com/scripts/jquery/checkbox-radiobutton/
+ */
+ 
+.ui-icon-empty  
+{
+    background: #79c9ec url(images/ui-bg_glass_75_79c9ec_1x400.png) 50% 50% repeat-x;
+    background-position: -160px 0; 
+}
+
+.ui-icon-empty:hover 
+{
+    background: #0078ae url(images/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x;
+}
+ 
+/* Native widget or wrapped widget styles */
+.ui-checkbox, .ui-radio {
+    margin: 2px;
+    border-width: 1px;
+    width: 16px;
+    display: inline;
+    vertical-align: middle;
+    cursor: pointer;
+}
+/* wrapped widget only */
+span.ui-checkbox, span.ui-radio {
+    width: 17px;
+    height: 16px;
+    position: relative;
+    display: inline;
+    display: inline-block;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+span.ui-radio {
+    width:11px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+}
+/* ie specific */
+v\:roundrect, v\:fill, v\:stroke {
+    display: block;
+    position: absolute;
+    behavior: url(#default#VML);
+    background-color: transparent;
+}
+/* opera specific */
+.ui-checkbox svg, .ui-radio svg {
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+}
+/* Icons */
+.ui-checkbox span.ui-icon, .ui-radio span.ui-icon {
+    position: absolute;
+    visibility: visible;
+    left: 6px;
+    top: 5px;
+    margin: -6px 0px 0px -6px;
+}
+/* Style the inner control so it doesn't affect webkit on focus */
+.ui-checkbox input, .ui-radio input {
+    position: absolute;
+    visibility: visible;
+    left: -99999999px;
+    top: -99999999px;
+    width: 14px;
+    height: 13px;
+    margin: 0px;
+    border: 0px none;
+    padding: 0px;
+}

@@ -1,7 +1,6 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Web.Controllers.WatchedList>
-
+﻿@model Web.Models.WatchedList
 @{
-    View.Title = "WatchedIt!";
+    ViewBag.Title = Web.SiteHelper.GetFullPageTitle("Home");
 }
 
 <div class="container"> 

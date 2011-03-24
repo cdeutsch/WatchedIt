@@ -12,13 +12,7 @@ namespace Web.Models
 
     public class WatchedEpisode
     {
-        //public User() 
-        //{
-        //    //ID = Guid.NewGuid();
-        //}
-
         
-
         [Key]
         public long WatchedEpisodeId { get; set; }
         public long EpisodeId { get; set; }
@@ -29,40 +23,26 @@ namespace Web.Models
         public DateTime Created { get; set; }
 
 
-        //public void JustLoggedIn()
-        //{
-        //    Updated = DateTime.Now;
-        //    LastLogin = DateTime.Now;
-        //}
+        //overrides basic equality. By overriding this
+        //you're telling the container how to find this object
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() == typeof(WatchedEpisode))
+            {
+                var comp = (WatchedEpisode)obj;
+                return comp.WatchedEpisodeId.Equals(this.WatchedEpisodeId);
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
 
-        ////overrides basic equality. By overriding this
-        ////you're telling the container how to find this object
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj.GetType() == typeof(User))
-        //    {
-        //        var comp = (User)obj;
-        //        return comp.UserID.Equals(this.UserID);
-        //    }
-        //    else
-        //    {
-        //        return base.Equals(obj);
-        //    }
-        //}
-
-        //public override string ToString()
-        //{
-        //    return this.UserID.ToString();
-        //}
+        public override string ToString()
+        {
+            return this.WatchedEpisodeId.ToString();
+        }
 
     }
-
-    //public class UserMetaData
-    //{
-    //    [Required(ErrorMessage="Username is required.")]
-    //    public object Username { get; set; }
-
-
-    //}
 
 }

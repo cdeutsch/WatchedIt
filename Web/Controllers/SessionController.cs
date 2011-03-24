@@ -5,172 +5,182 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Web.Models;
-using Web.Infrastructure.Authentication;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Routing;
+using Web.Infrastructure.Session;
 
 namespace Web.Controllers
 {
     public class SessionController : Controller
     {
 
-        IAuthenticationService _authService;
+        public IFormsAuthenticationService FormsService { get; set; }
+        public IMembershipService MembershipService { get; set; }
+        public IUserSession UserSession { get; set; }
+
         SiteDB _db;
         UserActivity _log;
-        public SessionController(IAuthenticationService authService)
+
+        public SessionController(IFormsAuthenticationService FormsService, IMembershipService MembershipService, IUserSession UserSession)
         {
             _db = new SiteDB();
-            _authService = authService;
             _log = new UserActivity(_db);
+
+            this.FormsService = FormsService;
+            this.MembershipService = MembershipService;
+            this.UserSession = UserSession;
         }
 
-        //
-        // GET: /Session/Create
-        //Kind of like "Login"
-        public ActionResult Create()
+        public ActionResult Login()
         {
-
-            if (Request.QueryString["ReturnUrl"] != null)
-            {
-                Session["ReturnUrl"] = Request.QueryString["ReturnUrl"];
-            }
-            
-            return View(CreateForm.NewCreateForm());
+            return View();
         }
 
+        /// <summary>
+        /// Default Create action is to do a Login.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(FormCollection collection)
+        public ActionResult Login(ComboSignupLoginModel model, string returnUrl)
         {
-            var login = collection["usernew.username"];
-            var email = collection["usernew.email"];
-            var password = collection["password"];
-            var confirm = collection["confirm"];
-            if (!String.IsNullOrEmpty(login) & !String.IsNullOrEmpty(password) & !String.IsNullOrEmpty(confirm))
+            if (ModelState.IsValid)
             {
-                try
+                if (MembershipService.ValidateUser(model.UserLogin.LoginName, model.UserLogin.Password))
                 {
-                    var registered = _authService.RegisterUser(login, password, confirm, email, "", "");
-                    if (registered)
+                    //get user.
+                    User user = UserRepository.GetUser(_db, model.UserLogin.LoginName);
+                    if (user != null)
                     {
-                        //this.FlashInfo("Thank you for signing up!");
+                        //log that the user logged in.
+                        _log.LogIt(user.UserId, "User Logged In");
 
-                        //get userid.
-                        User user = UserRepository.GetUser(_db, login);
-                        if (user != null)
-                        {
-                            _log.LogIt(user.UserId, "Registered");
-
-                            this.FlashInfo("Thank you for signing up!");
-
-                            return AuthAndRedirect(login, user.UserId.ToString());
-                        }
-
+                        FormsService.SignIn(user.UserId.ToString(), model.UserLogin.RememberMe);
+                        return SaveFriendlyInfoAndRedirect(user, returnUrl);
                     }
                     else
                     {
-                        this.FlashWarning("There was a problem with your registration");
+                        ModelState.AddModelError("", "User info could not be found.");
+                        this.FlashValidationSummaryErrors();
                     }
                 }
-                catch (Exception x)
+                else
                 {
-                    //the auth service should return a usable exception message
-                    this.FlashError(x.Message);
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    this.FlashValidationSummaryErrors();
                 }
             }
-            else
-            {
-                this.FlashError("Invalid user name or password");
-            }
-            return RedirectToAction("create");
 
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateForm createForm)
+        public ActionResult SignUp(ComboSignupLoginModel model, string returnUrl)
         {
-            if (!String.IsNullOrEmpty(createForm.UserLogin.LoginName) & !String.IsNullOrEmpty(createForm.UserLogin.Password))
+            if (ModelState.IsValid)
             {
-                if (_authService.IsValidLogin(createForm.UserLogin.LoginName, createForm.UserLogin.Password))
-                {
-                    //get userid.
-                    User user = UserRepository.GetUser(_db, createForm.UserLogin.LoginName);
-                    if (user != null)
-                    {
-                        _log.LogIt(user.UserId, "Registered");
+                // Attempt to register the user
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserNew.UserName, model.UserNew.Password, model.UserNew.Email);
 
-                        return AuthAndRedirect(user.Username, user.UserId.ToString());
+                if (createStatus == MembershipCreateStatus.Success)
+                {
+                    try
+                    {
+                        //finish the registration that the MembershipProvider did not handle.
+                        User user = UserRepository.CompleteRegistration(_db, model.UserNew.UserName, model.UserNew.FirstName, model.UserNew.LastName);
+                        
+                        //log that user registered.
+                        _log.LogIt(user.UserId, "User registered");
+
+                        this.FlashInfo("Thank you for signing up!");
+
+                        FormsService.SignIn(user.UserId.ToString(), false /* createPersistentCookie */);
+                        return SaveFriendlyInfoAndRedirect(user, returnUrl);
                     }
+                    catch (Exception exp)
+                    {
+                        ModelState.AddModelError("", exp.Message);
+                        this.FlashValidationSummaryErrors();
+                    }
+                    
+                }
+                else
+                {
+                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+                    this.FlashValidationSummaryErrors();
                 }
             }
-            this.FlashWarning("Invalid login");
 
-            return View(createForm);
-
+            // If we got this far, something failed, redisplay form
+            return View("login", model);
         }
 
-        ActionResult AuthAndRedirect(string friendly, string userKey)
+        //Logout
+        public ActionResult Logout()
         {
-            Response.Cookies["friendly"].Value = friendly;
+            Response.Cookies["friendly"].Value = null;
+            _log.LogIt(UserSession.GetCurrentUserId(), "Logged out");
+            UserSession.Logout();
+            FormsService.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //we need the username for this to work so get the user.
+                User user = UserRepository.GetUser(_db, UserSession.GetCurrentUserId());
+                if (MembershipService.ChangePassword(user.Username, model.OldPassword, model.NewPassword))
+                {
+                    return RedirectToAction("ChangePasswordSuccess");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    this.FlashValidationSummaryErrors();
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        public ActionResult ChangePasswordSuccess()
+        {
+            return View();
+        }
+
+        protected ActionResult SaveFriendlyInfoAndRedirect(User user, string returnUrl)
+        {
+            //save a friendly name for view use.
+            Response.Cookies["friendly"].Value = user.Username;
             Response.Cookies["friendly"].Expires = DateTime.Now.AddDays(30);
             Response.Cookies["friendly"].HttpOnly = true;
 
-            FormsAuthentication.SetAuthCookie(userKey, true);
-            if (Session["ReturnUrl"] != null)
+            //redirect to specified url or default.
+            if (Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(Session["ReturnUrl"].ToString());
+                return Redirect(returnUrl);
             }
             else
             {
-                return Redirect("/");
+                return RedirectToAction("Index", "Home");
             }
         }
-        
-        //Logout
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete()
-        {
-            Response.Cookies["friendly"].Value = null;
-            _log.LogIt(Convert.ToInt64(User.Identity.Name), "Logged out");
-            FormsAuthentication.SignOut();
-            return RedirectToAction("index", "home");
-        }
 
     }
 
-    public class CreateForm
-    {
-        public static CreateForm NewCreateForm()
-        {
-            CreateForm cf = new CreateForm();
-            cf.UserLogin = new LoginUser();
-            cf.UserNew = new User();
-            return cf;
-        }
-
-        public CreateForm()
-        {
-
-        }
-
-        public CreateForm(LoginUser UserLogin, User UserNew)
-        {
-            this.UserLogin = UserLogin;
-            this.UserNew = UserNew;
-        }
-
-        public User UserNew  { get; set; }
-        public LoginUser UserLogin { get; set; }
-    }
-
-    public class LoginUser
-    {
-        [Required(ErrorMessage = "Username is required.")]
-        public string LoginName { get; set; }
-
-        [Required(ErrorMessage = "Password is required.")]
-        public string Password { get; set; }
-    }
 }

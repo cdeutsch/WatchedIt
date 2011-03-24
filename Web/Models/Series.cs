@@ -12,28 +12,25 @@ namespace Web.Models
 
     public class Series : IAuditable
     {
-        //public User() 
-        //{
-        //    //ID = Guid.NewGuid();
-        //}
+        public Series()
+        {
+            //this seems to be necessary if DB is empty.
+            if (Episodes == null)
+            {
+                Episodes = new List<Episode>();
+            }
+        }
 
         [Key]
         public long SeriesId { get; set; }
         public int TVDBSeriesId { get; set; }
         [StringLength(500)]
         public string SeriesName { get; set; }
-        [StringLength(50)]
         public DateTime Updated { get; set; }
         public DateTime Created { get; set; }
 
         //relationships:
         public ICollection<Episode> Episodes { get; set; }
-
-        //public void JustLoggedIn()
-        //{
-        //    Updated = DateTime.Now;
-        //    LastLogin = DateTime.Now;
-        //}
 
         //overrides basic equality. By overriding this
         //you're telling the container how to find this object
@@ -56,13 +53,5 @@ namespace Web.Models
         }
 
     }
-
-    //public class UserMetaData
-    //{
-    //    [Required(ErrorMessage="Username is required.")]
-    //    public object Username { get; set; }
-
-
-    //}
 
 }

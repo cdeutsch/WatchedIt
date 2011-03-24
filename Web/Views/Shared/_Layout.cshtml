@@ -1,50 +1,36 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!doctype html>
+@* paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ *@
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame --> 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
-
-    <title>@View.Title</title>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @*  Mobile viewport optimized: j.mp/bplateviewport *@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    @Html.CSS("bp")
-    @Html.CSS("jquery-ui.css")
-    @Html.CSS("jayj")
-    @Html.CSS("site")
-    <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]--> 
+    @*use SquishIt to combine and compress all CSS and Javascripts for better performance*@
+    @MvcHtmlString.Create(SquishIt.Framework.Bundle.Css()
+        .Add(HtmlHelpers.VirtualCSSPath("bp.css"))
+        .Add(HtmlHelpers.VirtualCSSPath("themes/base/jquery-ui.css"))
+        .Add(HtmlHelpers.VirtualCSSPath("jayj.css"))
+        .Add(HtmlHelpers.VirtualCSSPath("site.css"))
+        //.ForceRelease() //comment in to enable compression.
+        .WithCompressor(SquishIt.Framework.Css.Compressors.CssCompressors.YuiCompressor)
+        .Render(HtmlHelpers.VirtualCSSPath("combined_#.css"))
+    )
     <!--[if lte IE 7]>@Html.CSS("bp_ie")<![endif]--> 
-    
+    @RenderSection("cssFiles", false)
 
-    @Html.Script("MicrosoftAjax.js")
-    @Html.Script("MicrosoftMvcValidation.js")
-    @Html.Script("jquery.min.js")
-    @Html.Script("jquery-ui.min.js")
-    @Html.Script("ui.checkbox.js")
-    @Html.Script("json2.min.js")
-    @Html.Script("jquery.ajaxui.js")
-    @Html.Script("watchedit.js")
-    
-    <script type="text/javascript">
-        function makeButtons()
-        {
-            //hover states on the static widgets
-            $('.ui-button').hover(
-                function () { $(this).addClass('ui-state-hover'); },
-                function () { $(this).removeClass('ui-state-hover'); }
-            );
-        }
-
-        $(function () {
-            makeButtons();
-        });
-    </script>
-
-    @Html.Flash()
+    @* All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects *@
+    @Html.Script("modernizr-1.7.min.js")
 </head>
 
 <body>
-    <div id="flash" style="display:none"></div>
+    <div id="flash" class="flash" style="display:none"></div>
     <div class="container" id="wrapper">
         <header id="header" class="span-24">
             <div class="container">
@@ -54,38 +40,15 @@
                 <div id="site-menu" class="column span-8 right">
                     @if (HttpContext.Current.User.Identity.IsAuthenticated) { 
                     <text>Hi @Html.Friendly() | </text>
-                    <form id="fLougout" name="fLogout" action="@Url.Action("delete","session")" method="post" style="display:inline">
-                        @Html.AntiForgeryToken()
-                        <a href="" onclick="fLogout.submit();return false;" >Logout</a>
-                    </form>
+                        @Html.ActionLink("Logout", "Logout", "session")
                     } else {
-                        @Html.ActionLink("Login","create","session")
-                    } 
+                        @Html.ActionLink("Login","Login","session")
+                    }
                 </div>
             </div>
 
         </header>
         <div id="content">
-            <!--<nav>
-                <ul class="clearfix" id="menu"> 
-                    <li class="current"><a href="index.html">Home</a></li>
-                    <li>
-                	    <a href="about.html">About</a>
-                        <ul>
-                            <li><a href="about.html">Subpage</a></li>
-                            <li><a href="about.html">Subpage 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-                <br class="clear">
-            </nav>-->
-
-            <!-- Show a "Please Upgrade" box to both IE7 and IE6 users (Edit to IE 6 if you just want to show it to IE6 users) - jQuery will load the content from js/ie.html into the div -->
-            <!--[if lte IE 7]>
-        	    <div class="ie grid_7"></div>
-            <![endif]-->
-
             @RenderBody()
         </div>
         <footer id="footer" class="span-24">            
@@ -98,19 +61,39 @@
             </div>
         </footer>
     </div>
+    
+    @*Javascript at the bottom for fast page loading -->
+      Grab Google CDN's jQuery. fall back to local if necessary*@
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <script>window.jQuery || document.write('<script src="@Html.ScriptPath("jquery-1.4.4.min.js")">\x3C/script>')</script>
 
-    <!-- asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet -->
+    @*use SquishIt to combine and compress all Javascripts for better performance*@
+    @MvcHtmlString.Create(SquishIt.Framework.Bundle.JavaScript()
+        .Add(HtmlHelpers.VirtualScriptPath("jquery.validate.min.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("jquery.validate.unobtrusive.min.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("jquery-ui-1.8.10.min.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("jquery.cdeutsch.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("jquery.cdeutsch.ajaxui.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("ui.checkbox.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("json2.min.js"))
+        .Add(HtmlHelpers.VirtualScriptPath("watchedit.js"))
+        //.ForceRelease() //comment in to enable compression.
+        .Render(HtmlHelpers.VirtualScriptPath("combined_#.js"))
+    )
+    @RenderSection("scriptFiles", false)
+
+    @*display jquery flash messages*@
+    @Html.Flash()
+
+    @*mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID *@
     <script>
         var _gaq = [['_setAccount', 'UA-15946659-3'], ['_trackPageview']];
-        (function(d, t) {
-            var g = d.createElement(t),
-                s = d.getElementsByTagName(t)[0];
-            g.async = true;
-            g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g, s);
-        })(document, 'script');
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.async = 1;
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s)
+        } (document, 'script'));
     </script>
+    
 </body>
 </html>
-
-

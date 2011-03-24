@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Models;
 using Web.Infrastructure.Session;
-using TvdbLib.Data;
 
 namespace Web.Controllers
 {
@@ -15,15 +14,23 @@ namespace Web.Controllers
         SiteDB _db;
         IUserSession _userSession;
 
+        protected long CurrentUserId { get; set; }
+
         public HomeController(IUserSession UserSession)
         {
             _db = new SiteDB();
             _userSession = UserSession;
+
+            //since CurrentUserId is used a lot save it in a variable right away for easier to read code.
+            if (System.Web.HttpContext.Current.Request.IsAuthenticated)
+            {
+                CurrentUserId = _userSession.GetCurrentUserId();
+            }
         }
 
         public ActionResult Index()
         {
-            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
+            WatchedList model = new WatchedList(_db, CurrentUserId);
 
             return View(model);
         }
@@ -32,7 +39,7 @@ namespace Web.Controllers
         public ActionResult Index(string searchSeriesName)
         {
             //search for series.
-            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
+            WatchedList model = new WatchedList(_db, CurrentUserId);
             model.SearchResults = TVDBRepository.GetTvdbHandler().SearchSeries(searchSeriesName);
 
             //System.Web.Mvc.Html.LinkExtensions.ActionLink(
@@ -42,7 +49,7 @@ namespace Web.Controllers
 
         public ActionResult Edit()
         {
-            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId());
+            WatchedList model = new WatchedList(_db, CurrentUserId);
             model.EditMode = true;
 
             return View("Index", model);
@@ -52,7 +59,7 @@ namespace Web.Controllers
         public ActionResult DeleteSeries(long Id)
         {
             //delete the series.
-            WatchedRepository.StopWatchingSeries(_db, _userSession.GetCurrentUserId(), Id);
+            WatchedRepository.StopWatchingSeries(_db, CurrentUserId, Id);
 
             return RedirectToAction("Edit");
         }
@@ -60,19 +67,18 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult WatchSeries(int[] SeriesIds)
         {
-            long userId = _userSession.GetCurrentUserId();
             long firstId = 0;
 
             //add list of seriesIds to Watch list.
             foreach (int iId in SeriesIds)
             {
                 //make sure each Series is in our local db.
-                Series series = SeriesRepository.AddSeries(_db, userId, iId);
+                Series series = SeriesRepository.AddSeries(_db, CurrentUserId, iId);
                 //add this series to this user's watch list.
-                WatchedRepository.WatchSeries(_db, userId, series.SeriesId);
+                WatchedRepository.WatchSeries(_db, CurrentUserId, series.SeriesId);
 
                 //set first series if necessary.
-                if (firstId == 0) 
+                if (firstId == 0)
                 {
                     firstId = series.SeriesId;
                 }
@@ -92,9 +98,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult WatchEpisodes(long SelectedSeriesId, long[] EpisodeIds)
         {
-            long userId = _userSession.GetCurrentUserId();
-
-            WatchedRepository.SetWatched(_db, SelectedSeriesId, EpisodeIds, userId);
+            WatchedRepository.SetWatched(_db, SelectedSeriesId, EpisodeIds, CurrentUserId);
 
             return RedirectToAction("Series", new { Id = SelectedSeriesId });
         }
@@ -107,9 +111,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult WatchEpisode(long EpisodeId, bool Watched)
         {
-            long userId = _userSession.GetCurrentUserId();
-
-            WatchedRepository.SetWatched(_db, EpisodeId, userId, Watched);
+            WatchedRepository.SetWatched(_db, EpisodeId, CurrentUserId, Watched);
 
             return null;
         }
@@ -122,16 +124,14 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult WatchSeason(long SeriesId, int Season, bool Watched)
         {
-            long userId = _userSession.GetCurrentUserId();
-
-            WatchedRepository.SetWatched(_db, SeriesId, Season, userId, Watched);
+            WatchedRepository.SetWatched(_db, SeriesId, Season, CurrentUserId, Watched);
 
             return null;
         }
 
         public ActionResult Series(long Id)
         {
-            WatchedList model = new WatchedList(_db, _userSession.GetCurrentUserId(), Id);
+            WatchedList model = new WatchedList(_db, CurrentUserId, Id);
 
             return View("Index", model);
         }
@@ -147,55 +147,4 @@ namespace Web.Controllers
         }
     }
 
-    public class WatchedList
-    {
-        public bool EditMode { get; set; }
-        public long UserId { get; set; }
-        public long SelectedSeriesId { get; set; }
-        public List<WatchedSeries> WatchedSerieses { get; set; }
-        public List<WatchedEpisodeStatus> WatchedEpisodes { get; set; }
-        public List<TvdbSearchResult> SearchResults { get; set; }
-
-        public WatchedList(SiteDB db, long UserId)
-        {
-            this.UserId = UserId;
-            WatchedSerieses = WatchedRepository.GetAllSeries(db, UserId).ToList();
-        }
-
-        public WatchedList(SiteDB db, long UserId, long SeriesId)
-        {
-            SelectedSeriesId = SeriesId;
-            WatchedSerieses = WatchedRepository.GetAllSeries(db, UserId).ToList();
-            WatchedEpisodes = WatchedRepository.GetAllEpisodes(db, UserId, SeriesId);
-        }
-
-        public string SelectedSeriesFriendlyName
-        {
-            get
-            {
-                WatchedSeries ws = WatchedSerieses.SingleOrDefault(oo => oo.SeriesId == SelectedSeriesId);
-                if (ws != null)
-                {
-                    return ws.Series.SeriesName;
-                }
-                else
-                {
-                    return "";
-                }
-            }
-        }
-
-        public string GetSelectedSeriesFriendlyNameOrDefault(string Default)
-        {
-            string seriesName = SelectedSeriesFriendlyName;
-            if (!string.IsNullOrEmpty(seriesName))
-            {
-                return seriesName;
-            }
-            else
-            {
-                return Default;
-            }
-        }
-    }
 }

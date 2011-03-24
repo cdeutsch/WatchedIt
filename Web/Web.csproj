@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{498CBB4B-1DE9-4EAA-BBA9-E4F2EFCC0105}</ProjectGuid>
+    <ProjectGuid>{07F8A921-89A3-45A8-9341-CE00228D3A51}</ProjectGuid>
     <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -33,46 +33,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntiXSSLibrary">
-      <HintPath>..\lib\AntiXSSLibrary.dll</HintPath>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.13.4076.28499\lib\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.1.0\lib\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified">
+      <HintPath>..\packages\YUICompressor.NET.1.5.0.0\lib\NET35\EcmaScript.NET.modified.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
-      <HintPath>..\lib\Elmah.dll</HintPath>
+      <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EFCodeFirst.0.8\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.Entity.CTP, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Microsoft.Data.Entity.CTP.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Ninject">
-      <HintPath>..\lib\Ninject.dll</HintPath>
+      <HintPath>..\packages\Ninject.2.2.1.0\lib\.NetFramework 4.0\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\lib\NLog.dll</HintPath>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC3.2.2.1.1\lib\.NetFramework 4.0\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="SquishIt.Framework">
+      <HintPath>..\packages\SquishIt.0.7.1\lib\SquishIt.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
+      <HintPath>..\packages\SqlServerCompact.4.0.8482.1\lib\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Helpers">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Helpers" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -81,11 +74,7 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -96,13 +85,17 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="TvdbLib">
-      <HintPath>..\..\tvdblib\TvdbLib\bin\Debug\TvdbLib.dll</HintPath>
+      <HintPath>..\lib\TvdbLib.dll</HintPath>
     </Reference>
-    <Reference Include="WebMatrix.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.4\lib\NETFramework40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\packages\YUICompressor.NET.1.5.0.0\lib\NET35\Yahoo.Yui.Compressor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NinjectMVC3.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -110,111 +103,100 @@
     </Compile>
     <Compile Include="Helpers\FlashHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
-    <Compile Include="Helpers\XSSHelper.cs" />
-    <Compile Include="Infrastructure\Authentication\AspNetAuthenticationService.cs" />
-    <Compile Include="Infrastructure\Authentication\IAuthenticationService.cs" />
-    <Compile Include="Infrastructure\Authentication\UserAuthenticationService.cs" />
+    <Compile Include="Helpers\SiteHelper.cs" />
     <Compile Include="Infrastructure\Session\IUserSession.cs" />
-    <Compile Include="Models\AuditableRepository.cs" />
-    <Compile Include="Models\SeriesRepository.cs" />
-    <Compile Include="Models\IAuditable.cs" />
-    <Compile Include="Infrastructure\Logging\EventLogLogger.cs" />
-    <Compile Include="Infrastructure\Logging\ILogger.cs" />
-    <Compile Include="Infrastructure\Logging\LogUtility.cs" />
-    <Compile Include="Infrastructure\Logging\NLogLogger.cs" />
     <Compile Include="Infrastructure\Session\WebUserSession.cs" />
-    <Compile Include="Models\SiteDBTestInitializer.cs" />
+    <Compile Include="Infrastructure\UserMembershipProvider\UserMembershipProvider.cs" />
+    <Compile Include="Infrastructure\UserMembershipProvider\UserRoleProvider.cs" />
+    <Compile Include="Models\AuditableRepository.cs" />
+    <Compile Include="Models\Episode.cs" />
+    <Compile Include="Models\Series.cs" />
+    <Compile Include="Models\SeriesRepository.cs" />
     <Compile Include="Models\TVDBRepository.cs" />
+    <Compile Include="Models\ViewModels\SessionModels.cs" />
+    <Compile Include="Models\IAuditable.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\RoleRepository.cs" />
+    <Compile Include="Models\SiteDB.cs" />
+    <Compile Include="Models\SiteDBInitializer.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserActivity.cs" />
+    <Compile Include="Models\UserRepository.cs" />
+    <Compile Include="Models\ViewModels\WatchedList.cs" />
+    <Compile Include="Models\WatchedEpisode.cs" />
     <Compile Include="Models\WatchedEpisodeStatus.cs" />
     <Compile Include="Models\WatchedRepository.cs" />
     <Compile Include="Models\WatchedSeries.cs" />
-    <Compile Include="Models\WatchedEpisode.cs" />
-    <Compile Include="Models\Series.cs" />
-    <Compile Include="Models\SiteDB.cs" />
-    <Compile Include="Models\Episode.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\UserActivity.cs" />
-    <Compile Include="Utilities\NinjectResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SiteDB.sdf" />
+    <Content Include="Content\bp.css" />
+    <Content Include="Content\bp_ie.css" />
+    <Content Include="Content\bp_print.css" />
+    <Content Include="Content\fonts\SIL Open Font License 1.1.txt" />
+    <Content Include="Content\Images\accepted.png" />
+    <Content Include="Content\Images\bg.png" />
+    <Content Include="Content\Images\busy.gif" />
+    <Content Include="Content\boilerplate.css" />
+    <Content Include="Content\Images\cancel.png" />
+    <Content Include="Content\Images\content_bg.png" />
+    <Content Include="Content\Images\implex.gif" />
+    <Content Include="Content\Images\quote.png" />
+    <Content Include="Content\Images\screen1.png" />
+    <Content Include="Content\Images\screen2.png" />
+    <Content Include="Content\Images\white.png" />
+    <Content Include="Content\jayj.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbec88_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_gloss-wave_45_fef1ec_500x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glow-ball_50_0078ae_600x600.png" />
+    <Content Include="Content\themes\base\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_056b93_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Global.asax" />
-    <Content Include="Public\css\960.css" />
-    <Content Include="Public\css\960_ie.css" />
-    <Content Include="Public\css\bp_ie.css" />
-    <Content Include="Public\css\fonts\SIL Open Font License 1.1.txt" />
-    <Content Include="Public\css\images\accepted.png" />
-    <Content Include="Public\css\images\bg.png" />
-    <Content Include="Public\css\images\cancel.png" />
-    <Content Include="Public\css\images\content_bg.png" />
-    <Content Include="Public\css\images\quote.png" />
-    <Content Include="Public\css\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="Public\css\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="Public\css\images\ui-bg_glass_100_cc0000_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_glass_45_000000_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_glass_55_fbec88_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_glass_75_212121_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="Public\css\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="Public\css\images\ui-bg_gloss-wave_45_fef1ec_500x100.png" />
-    <Content Include="Public\css\images\ui-bg_gloss-wave_50_212121_500x100.png" />
-    <Content Include="Public\css\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="Public\css\images\ui-bg_glow-ball_50_0078ae_600x600.png" />
-    <Content Include="Public\css\images\ui-bg_highlight-hard_100_e3a1a1_1x100.png" />
-    <Content Include="Public\css\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Public\css\images\ui-icons_000000_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_056b93_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Public\css\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Public\css\images\white.png" />
-    <Content Include="Public\css\bp_print.css" />
-    <Content Include="Public\css\bp.css" />
-    <Content Include="Public\css\jquery-ui.css" />
-    <Content Include="Public\css\site.css" />
-    <Content Include="Public\css\jayj.css" />
-    <Content Include="Public\images\busy.gif" />
-    <Content Include="Public\images\implex.gif" />
-    <Content Include="Public\images\screen1.png" />
-    <Content Include="Public\images\screen2.png" />
-    <Content Include="Public\scripts\jquery.ajaxui.js" />
-    <Content Include="Public\scripts\json2.min.js" />
-    <Content Include="Public\scripts\ui.checkbox.js" />
-    <Content Include="Public\scripts\watchedit.js" />
-    <Content Include="Public\scripts\jquery.min.js" />
-    <Content Include="Public\scripts\jquery-ui.min.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.10.min.js" />
+    <Content Include="Scripts\jquery.cdeutsch.ajaxui.js" />
+    <Content Include="Scripts\jquery.cdeutsch.js" />
+    <Content Include="Scripts\json2.min.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\ui.checkbox.js" />
+    <Content Include="Scripts\watchedit.js" />
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Public\scripts\jquery-vsdoc.js" />
-    <Content Include="Public\scripts\jquery.validate.js" />
-    <Content Include="Public\scripts\jquery.validate.min.js" />
-    <Content Include="Public\scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Public\scripts\MicrosoftAjax.js" />
-    <Content Include="Public\scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Public\scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Public\scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Public\scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Public\scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
@@ -223,14 +205,23 @@
     <Folder Include="App_Data\TVDB\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Session\Create.cshtml" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Public\css\fonts\Chunkfive.eot" />
-    <Content Include="Public\css\fonts\Chunkfive.otf" />
-    <Content Include="Public\css\fonts\Chunkfive.svg" />
-    <Content Include="Public\css\fonts\Chunkfive.woff" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Session\ChangePassword.cshtml" />
+    <Content Include="Views\Session\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Session\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\fonts\Chunkfive.eot" />
+    <None Include="Content\fonts\Chunkfive.otf" />
+    <None Include="Content\fonts\Chunkfive.svg" />
+    <None Include="Content\fonts\Chunkfive.woff" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -249,7 +240,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50519</DevelopmentServerPort>
+          <DevelopmentServerPort>29777</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
@@ -262,4 +253,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+xcopy /s /y "$(SolutionDir)packages\SqlServerCompact.4.0.8482.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

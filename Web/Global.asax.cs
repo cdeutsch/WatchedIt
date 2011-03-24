@@ -4,14 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Ninject;
-using Ninject.Modules;
-using Site.Infrastructure.Logging;
-using Web.Infrastructure.Authentication;
 using Web.Models;
-using Mvc3Ninject.Utility;
-using System.Data.Entity.Infrastructure;
-using Web.Infrastructure.Session;
+using System.Data.Entity.Database;
+
 namespace Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -31,18 +26,12 @@ namespace Web
             routes.MapRoute(
                 "Login", // Route name
                 "login", // URL with parameters
-                new { controller = "Session", action = "Create" } // Parameter defaults
+                new { controller = "Session", action = "login" } // Parameter defaults
             );
             routes.MapRoute(
                 "Logout", // Route name
                 "logout", // URL with parameters
-                new { controller = "Session", action = "Delete" } // Parameter defaults
-            );
-
-            routes.MapRoute(
-                "Session", // Route name
-                "session/{action}/{id}", // URL with parameters
-                new { controller = "Session", action = "Create", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Session", action = "logout" } // Parameter defaults
             );
 
             routes.MapRoute(
@@ -53,83 +42,22 @@ namespace Web
 
         }
 
-        public static void RegisterServices(IKernel kernel)
+        protected void Application_Start()
         {
-            kernel.Bind<IControllerFactory>().To<DefaultControllerFactory>();
-
-            //a typical binding
-            kernel.Bind<ILogger>().To<NLogLogger>().InSingletonScope();
-            //Bind<INoSqlServer>().To<DB4OServer>().InSingletonScope();
-            //Bind<ISession>().To<Db4oSession>().InRequestScope();
-
-            //You can use the SimpleRepository to build out your database
-            //it runs "Auto Migrations" - changing your schema on the fly for you
-            //should you change your model. You can switch it out as you need.
-            //http://subsonicproject.com/docs/Using_SimpleRepository
-            kernel.Bind<IAuthenticationService>().To<UserAuthenticationService>();
-            kernel.Bind<IUserSession>().To<WebUserSession>();
-        }
-
-        public void SetupDependencyInjection()
-        {
-            // Create Ninject DI Kernel 
-            _container = new StandardKernel();
-
-            //// Register services with our Ninject DI Container
-            RegisterServices(_container);
-
-            //// Tell ASP.NET MVC 3 to use our Ninject DI Container 
-            DependencyResolver.SetResolver(new NinjectResolver(_container));
-        }
-
-        void Application_Start()
-        {
-            //Database.SetInitializer<SiteDB>(new AlwaysRecreateDatabase<SiteDB>());
-            //Database.SetInitializer<ReportingDB>(new AlwaysRecreateDatabase<ReportingDB>());
-
-            Database.SetInitializer<SiteDB>(new CreateDatabaseOnlyIfNotExists<SiteDB>());
-            //Database.SetInitializer<SiteDB>(new SiteDBTestInitializer(new UserAuthenticationService())); //seed test data
-            //Database.SetInitializer<ReportingDB>(new RecreateDatabaseIfModelChanges<ReportingDB>());
-
-            SetupDependencyInjection();
+            //initialize EF Code First DB.
+            DbDatabase.SetInitializer<SiteDB>(new SiteDBInitializer(new AccountMembershipService()));
 
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
-            Logger.Info("App is starting");
-        }
-
-        protected void Application_End()
-        {
-            Logger.Info("App is shutting down");
         }
 
         protected void Application_Error()
         {
             Exception lastException = Server.GetLastError();
-            Logger.Fatal(lastException);
             // Log the exception.
             Elmah.ErrorSignal.FromCurrentContext().Raise(lastException);
         }
-
-        public ILogger Logger
-        {
-            get
-            {
-                return Container.Get<ILogger>();
-            }
-        }
-
-        static IKernel _container;
-        public static IKernel Container
-        {
-            get
-            {
-                return _container;
-            }
-        }
-
     }
 }

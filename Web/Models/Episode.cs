@@ -12,10 +12,6 @@ namespace Web.Models
 
     public class Episode : IAuditable
     {
-        //public User() 
-        //{
-        //    //ID = Guid.NewGuid();
-        //}
 
         [Key]
         public long EpisodeId { get; set; }
@@ -28,42 +24,29 @@ namespace Web.Models
         public string EpisodeTitle { get; set; }
         public DateTime Updated { get; set; }
         public DateTime Created { get; set; }
-        
 
-        //public void JustLoggedIn()
-        //{
-        //    Updated = DateTime.Now;
-        //    LastLogin = DateTime.Now;
-        //}
 
-        ////overrides basic equality. By overriding this
-        ////you're telling the container how to find this object
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj.GetType() == typeof(User))
-        //    {
-        //        var comp = (User)obj;
-        //        return comp.UserID.Equals(this.UserID);
-        //    }
-        //    else
-        //    {
-        //        return base.Equals(obj);
-        //    }
-        //}
+        //overrides basic equality. By overriding this
+        //you're telling the container how to find this object
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() == typeof(Episode))
+            {
+                var comp = (Episode)obj;
+                return comp.EpisodeId.Equals(this.EpisodeId);
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
 
-        //public override string ToString()
-        //{
-        //    return this.UserID.ToString();
-        //}
+        public override string ToString()
+        {
+            return this.EpisodeTitle;
+        }
 
     }
 
-    //public class UserMetaData
-    //{
-    //    [Required(ErrorMessage="Username is required.")]
-    //    public object Username { get; set; }
-
-
-    //}
 
 }

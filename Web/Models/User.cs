@@ -11,17 +11,30 @@ namespace Web.Models {
 
     public class User : IAuditable
     {
-        //public User() 
-        //{
-        //    //ID = Guid.NewGuid();
-        //}
+        public User()
+        {
+            //this seems to be necessary if DB is empty.
+            if (Roles == null)
+            {
+                Roles = new List<Role>();
+            }
+            if (WatchedSerieses == null)
+            {
+                WatchedSerieses = new List<WatchedSeries>();
+            }
+        }
 
         [Key] 
         public long UserId { get; set; }
+
+        [Required(ErrorMessage="Email is required")]
         [StringLength(320)] 
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Username is required")]
         [StringLength(50)] 
         public string Username { get; set; }
+
         [StringLength(100)] 
         public string PasswordHash { get; set; }
         [StringLength(25)] 
@@ -50,42 +63,49 @@ namespace Web.Models {
         public DateTime Created { get; set; }
 
         //relationships:
+        public virtual ICollection<Role> Roles { get; set; }
         public ICollection<WatchedSeries> WatchedSerieses { get; set; }
 
-        //public void JustLoggedIn()
-        //{
-        //    Updated = DateTime.Now;
-        //    LastLogin = DateTime.Now;
-        //}
+        public string GetFriendlyName()
+        {
+            if (!string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName))
+            {
+                return (FirstName + " " + LastName).Trim();
+            }
+            else
+            {
+                return "";
+            }
+        }
 
-        ////overrides basic equality. By overriding this
-        ////you're telling the container how to find this object
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj.GetType() == typeof(User))
-        //    {
-        //        var comp = (User)obj;
-        //        return comp.UserID.Equals(this.UserID);
-        //    }
-        //    else
-        //    {
-        //        return base.Equals(obj);
-        //    }
-        //}
+        public void JustLoggedIn()
+        {
+            Updated = DateTime.Now;
+            LastLogin = DateTime.Now;
+        }
 
-        //public override string ToString()
-        //{
-        //    return this.UserID.ToString();
-        //}
+        //overrides basic equality. By overriding this
+        //you're telling the container how to find this object
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() == typeof(User))
+            {
+                var comp = (User)obj;
+                return comp.UserId.Equals(this.UserId);
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
 
-    }
-
-    //public class UserMetaData
-    //{
-    //    [Required(ErrorMessage="Username is required.")]
-    //    public object Username { get; set; }
+        public override string ToString()
+        {
+            return this.UserId.ToString();
+        }
 
         
-    //}
+
+    }
 
 }
