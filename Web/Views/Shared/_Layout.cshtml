@@ -13,15 +13,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     @*use SquishIt to combine and compress all CSS and Javascripts for better performance*@
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    { 
     @MvcHtmlString.Create(SquishIt.Framework.Bundle.Css()
         .Add(HtmlHelpers.VirtualCSSPath("bp.css"))
-        .Add(HtmlHelpers.VirtualCSSPath("themes/base/jquery-ui.css"))
+        .Add(HtmlHelpers.VirtualCSSPath("jquery-ui.css"))
         .Add(HtmlHelpers.VirtualCSSPath("jayj.css"))
         .Add(HtmlHelpers.VirtualCSSPath("site.css"))
-        //.ForceRelease() //comment in to enable compression.
+        .ForceRelease() //comment in to enable compression.
         .WithCompressor(SquishIt.Framework.Css.Compressors.CssCompressors.YuiCompressor)
+        .RenderOnlyIfOutputFileMissing()
         .Render(HtmlHelpers.VirtualCSSPath("combined_#.css"))
     )
+    }
+    else 
+    {
+        @Html.CSS("combined_AB924EC5C0160F2199C3AEC37CABC50D")     
+    }
     <!--[if lte IE 7]>@Html.CSS("bp_ie")<![endif]--> 
     @RenderSection("cssFiles", false)
 
@@ -53,12 +61,15 @@
             @RenderBody()
         </div>
         <footer id="footer" class="span-24">            
+            <div id="makerocketgonow">
+                <a href="http://makerocketgonow.com/">@Html.Image("MakeRocketGoNow.png")</a>
+            </div>
             Copyright &copy;@DateTime.Now.Year <a href="http://cdeutsch.com/contact">CDeutsch</a>. See the 
             @Html.ActionLink("Privacy Terms", "Privacy", "Home")
             for what we do with your information. <br />
             TV listings provided by <a href="http://thetvdb.com/">TheTVDB.com</a> please consider contributing.
             <div class="hosting">
-                <span>Hosting provided by </span> <a href="http://www.implex.net">@Html.Image("implex.gif", "alt=Implex")</a>
+                <span>Hosting provided by </span> <a href="http://appharbor.com/">AppHarbor</a>
             </div>
         </footer>
     </div>
@@ -69,6 +80,8 @@
     <script>window.jQuery || document.write('<script src="@Html.ScriptPath("jquery-1.4.4.min.js")">\x3C/script>')</script>
 
     @*use SquishIt to combine and compress all Javascripts for better performance*@
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    { 
     @MvcHtmlString.Create(SquishIt.Framework.Bundle.JavaScript()
         .Add(HtmlHelpers.VirtualScriptPath("jquery.validate.min.js"))
         .Add(HtmlHelpers.VirtualScriptPath("jquery.validate.unobtrusive.min.js"))
@@ -78,9 +91,16 @@
         .Add(HtmlHelpers.VirtualScriptPath("ui.checkbox.js"))
         .Add(HtmlHelpers.VirtualScriptPath("json2.min.js"))
         .Add(HtmlHelpers.VirtualScriptPath("watchedit.js"))
-            //.ForceRelease() //comment in to enable compression.
+        .RenderOnlyIfOutputFileMissing()
+        .ForceRelease() //comment in to enable compression.
         .Render(HtmlHelpers.VirtualScriptPath("combined_#.js"))
     )
+    }
+    else 
+    { 
+        @Html.Script("combined_2F5967294A81FF1DAB530DDC49038349")    
+    }
+    
     @RenderSection("scriptFiles", false)
 
     @*display jquery flash messages*@

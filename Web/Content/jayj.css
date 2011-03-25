@@ -38,8 +38,8 @@
 
 @font-face {
 	font-family: 'ChunkFive Regular';
-	src: url('fonts/Chunkfive.eot');
-	src: local('ChunkFive Regular'), local('ChunkFive'), url('fonts/Chunkfive.woff') format('woff'), url('fonts/Chunkfive.svg#ChunkFive') format('svg'), url('fonts/Chunkfive.otf') format('opentype');
+	src: url('http://s3.amazonaws.com/watchedit/Chunkfive.eot');
+	src: local('ChunkFive Regular'), local('ChunkFive'), url('http://s3.amazonaws.com/watchedit/Chunkfive.woff') format('woff'), url('http://s3.amazonaws.com/watchedit/Chunkfive.svg#ChunkFive') format('svg'), url('http://s3.amazonaws.com/watchedit/Chunkfive.otf') format('opentype');
 }
 
 /* Reset.css */
@@ -203,7 +203,8 @@ blockquote p { margin: 0; }
 #menu a,
 #site-menu a
 {
-	background: url("images/ui-bg_glass_45_000000_1x400.png") repeat-x scroll 50% 50% #000000;
+	/*background: url("images/ui-bg_glass_45_000000_1x400.png") repeat-x scroll 50% 50% #000000;*/
+	background-color: Black;
 	color: #fff;
 	text-decoration: none;
 	text-shadow: #77D5F7 1px 1px 1px;

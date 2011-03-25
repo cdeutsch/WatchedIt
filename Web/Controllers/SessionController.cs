@@ -69,6 +69,11 @@ namespace Web.Controllers
                     this.FlashValidationSummaryErrors();
                 }
             }
+            else
+            {
+                this.FlashValidationSummaryErrors();
+            }
+            
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -87,9 +92,12 @@ namespace Web.Controllers
                 {
                     try
                     {
+                        ////CDEUTSH: not needed unless we add first and last name.
                         //finish the registration that the MembershipProvider did not handle.
-                        User user = UserRepository.CompleteRegistration(_db, model.UserNew.UserName, model.UserNew.FirstName, model.UserNew.LastName);
-                        
+                        //User user = UserRepository.CompleteRegistration(_db, model.UserNew.UserName, model.UserNew.FirstName, model.UserNew.LastName);
+
+                        User user = UserRepository.GetUser(_db, model.UserNew.UserName);
+
                         //log that user registered.
                         _log.LogIt(user.UserId, "User registered");
 
@@ -103,7 +111,7 @@ namespace Web.Controllers
                         ModelState.AddModelError("", exp.Message);
                         this.FlashValidationSummaryErrors();
                     }
-                    
+
                 }
                 else
                 {
@@ -111,7 +119,10 @@ namespace Web.Controllers
                     this.FlashValidationSummaryErrors();
                 }
             }
-
+            else
+            {
+                this.FlashValidationSummaryErrors();
+            }
             // If we got this far, something failed, redisplay form
             return View("login", model);
         }

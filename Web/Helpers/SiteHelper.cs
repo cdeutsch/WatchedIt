@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.IO;
 using System.Configuration;
+using System.Web.Mvc;
+using System.Data.Entity.Validation;
 
 namespace Web
 {
@@ -155,6 +157,22 @@ namespace Web
                 return true;
 
             return false;
+        }
+
+        /// <summary>
+        /// Returns all error messages in a single string seperated by the specified string.
+        /// </summary>
+        /// <param name="ModelState"></param>
+        /// <param name="Seperator"></param>
+        /// <returns></returns>
+        public static string ModelStateErrorsToString(ModelStateDictionary ModelState, string Seperator)
+        {
+            return string.Join(Seperator, ModelState.Values.SelectMany(oo => oo.Errors).Select(oo => oo.ErrorMessage).ToArray());
+        }
+
+        public static string EntityValidationErrorsToString(IEnumerable<DbEntityValidationResult> EntityValidationErrors, string Seperator)
+        {
+            return string.Join(Seperator, EntityValidationErrors.SelectMany(oo => oo.ValidationErrors).Select(oo => oo.ErrorMessage).ToArray());
         }
     }
 }

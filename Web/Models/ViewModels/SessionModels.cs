@@ -76,19 +76,6 @@ namespace Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "First name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Last name")]
-        public string LastName { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Organization")]
-        public string OrganizationName { get; set; }
     }
     #endregion
 

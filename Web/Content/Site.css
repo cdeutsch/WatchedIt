@@ -127,19 +127,23 @@ footer .hosting span
     vertical-align: top;
 }
 
-#footer .hosting a:hover
+#twitterLogin 
+{
+    margin-left: 1em;
+}
+
+#makerocketgonow 
+{
+    float: right;
+}
+
+#makerocketgonow a:hover
 {
     background: none;
     outline: transparent none 0;
     border: 0 none transparent;
     
 }
-
-#twitterLogin 
-{
-    margin-left: 1em;
-}
-
 
 
 
@@ -190,6 +194,11 @@ textarea
 .no-js .flash 
 {
     display: block;
+}
+
+#flash ul
+{
+    margin: 0;
 }
 
 #flash li
@@ -252,6 +261,7 @@ textarea
     font-weight: bold;
     color: #990000;
     cursor:pointer;
+    background-image: none;
 }
 
 

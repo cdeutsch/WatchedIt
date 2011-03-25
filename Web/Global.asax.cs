@@ -33,6 +33,11 @@ namespace Web
                 "logout", // URL with parameters
                 new { controller = "Session", action = "logout" } // Parameter defaults
             );
+            routes.MapRoute(
+                "Session", // Route name
+                "Session/{action}/{id}", // URL with parameters
+                new { controller = "Session", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
 
             routes.MapRoute(
                 "Twitter", // Route name

@@ -141,10 +141,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SiteDB.sdf" />
     <Content Include="Content\bp.css" />
     <Content Include="Content\bp_ie.css" />
     <Content Include="Content\bp_print.css" />
+    <Content Include="Content\combined_AB924EC5C0160F2199C3AEC37CABC50D.css" />
     <Content Include="Content\fonts\SIL Open Font License 1.1.txt" />
     <Content Include="Content\Images\accepted.png" />
     <Content Include="Content\Images\bg.png" />
@@ -153,28 +153,30 @@
     <Content Include="Content\Images\cancel.png" />
     <Content Include="Content\Images\content_bg.png" />
     <Content Include="Content\Images\implex.gif" />
+    <Content Include="Content\Images\MakeRocketGoNow.png" />
     <Content Include="Content\Images\quote.png" />
     <Content Include="Content\Images\screen1.png" />
     <Content Include="Content\Images\screen2.png" />
+    <Content Include="Content\Images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Content\Images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Content\Images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Content\Images\ui-bg_glass_55_fbec88_1x400.png" />
+    <Content Include="Content\Images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Content\Images\ui-bg_gloss-wave_45_fef1ec_500x100.png" />
+    <Content Include="Content\Images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="Content\Images\ui-bg_glow-ball_50_0078ae_600x600.png" />
+    <Content Include="Content\Images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\Images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Content\Images\ui-icons_056b93_256x240.png" />
+    <Content Include="Content\Images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\Images\ui-icons_e0fdff_256x240.png" />
     <Content Include="Content\Images\white.png" />
     <Content Include="Content\jayj.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbec88_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_gloss-wave_45_fef1ec_500x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glow-ball_50_0078ae_600x600.png" />
-    <Content Include="Content\themes\base\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_056b93_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\combined_2F5967294A81FF1DAB530DDC49038349.js" />
     <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
@@ -229,10 +231,10 @@
     <Content Include="Views\Session\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\fonts\Chunkfive.eot" />
-    <None Include="Content\fonts\Chunkfive.otf" />
-    <None Include="Content\fonts\Chunkfive.svg" />
-    <None Include="Content\fonts\Chunkfive.woff" />
+    <Content Include="Content\fonts\Chunkfive.eot" />
+    <Content Include="Content\fonts\Chunkfive.otf" />
+    <Content Include="Content\fonts\Chunkfive.svg" />
+    <Content Include="Content\fonts\Chunkfive.woff" />
     <Content Include="Views\Twitter\Login.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
