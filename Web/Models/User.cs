@@ -27,6 +27,15 @@ namespace Web.Models {
         [Key] 
         public long UserId { get; set; }
 
+        /// <summary>
+        /// Used for 3rd party auth like twitter.
+        /// </summary>
+        public string LoginId { get; set; }
+
+        public string LoginToken { get; set; }
+
+        public short UserTypeId { get; set; }
+
         [Required(ErrorMessage="Email is required")]
         [StringLength(320)] 
         public string Email { get; set; }

@@ -13,12 +13,33 @@ namespace Web.Models
         {
             //create a new user.
             User user = new User();
+            user.UserTypeId = (short)UserTypes.Regular;
             user.Username = Username;
             user.Email = Email;
             user.Enabled = true;
             //create salt for password hash.
             user.PasswordSalt = CreateSalt();
             user.PasswordHash = CreatePasswordHash(Password, user.PasswordSalt);
+            user.Created = DateTime.Now;
+            user.Updated = user.Created;
+
+            db.Users.Add(user);
+            db.SaveChanges();
+
+            return user;
+        }
+
+        public static User Create3rdPartyAuthUser(SiteDB db, string LoginId, string LoginToken, short UserTypeId, string Username)
+        {
+            //create a new user.
+            User user = new User();
+            user.LoginId = LoginId;
+            user.LoginToken = LoginToken;
+            user.UserTypeId = UserTypeId;
+            user.Username = Username;
+            //set dummy email.
+            user.Email = "twitter@watchedit.net";
+            user.Enabled = true;
             user.Created = DateTime.Now;
             user.Updated = user.Created;
 
@@ -92,7 +113,7 @@ namespace Web.Models
         /// <returns></returns>
         public static User GetUser(SiteDB db, string Username, bool IncludeDisabled)
         {
-            return db.Users.SingleOrDefault(oo => (oo.Username.ToLower() == Username.ToLower() || oo.Email.ToLower() == Username.ToLower()) && (IncludeDisabled || oo.Enabled == true));
+            return db.Users.SingleOrDefault(oo => (oo.Username.ToLower() == Username.ToLower() || oo.Email.ToLower() == Username.ToLower()) && (IncludeDisabled || oo.Enabled == true) && oo.UserTypeId == (short)UserTypes.Regular);
         }
         public static User GetUser(SiteDB db, long UserId)
         {
@@ -108,6 +129,7 @@ namespace Web.Models
             return (from uu in db.Users
                     where uu.Enabled == true
                     && uu.Username.ToLower() == Username.ToLower()
+                    && uu.UserTypeId == (short)UserTypes.Regular
                     select uu).SingleOrDefault();
         }
 
@@ -116,6 +138,16 @@ namespace Web.Models
             return (from uu in db.Users
                     where uu.Enabled == true
                     && uu.Email.ToLower() == Email.ToLower()
+                    && uu.UserTypeId == (short)UserTypes.Regular
+                    select uu).SingleOrDefault();
+        }
+
+        public static User GetUserByLoginId(SiteDB db, string LoginId, short UserTypeId)
+        {
+            return (from uu in db.Users
+                    where uu.Enabled == true
+                    && uu.LoginId == LoginId
+                    && uu.UserTypeId == UserTypeId
                     select uu).SingleOrDefault();
         }
 

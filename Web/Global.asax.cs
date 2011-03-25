@@ -35,6 +35,13 @@ namespace Web
             );
 
             routes.MapRoute(
+                "Twitter", // Route name
+                "Twitter/{action}/{id}", // URL with parameters
+                new { controller = "Twitter", action = "Login", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults

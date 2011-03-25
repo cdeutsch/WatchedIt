@@ -43,6 +43,7 @@
                         @Html.ActionLink("Logout", "Logout", "session")
                     } else {
                         @Html.ActionLink("Login","Login","session")
+                        @Html.ActionLink("Login with Twitter", "Login", "Twitter", null, new { id = "twitterLogin" })
                     }
                 </div>
             </div>
@@ -53,7 +54,7 @@
         </div>
         <footer id="footer" class="span-24">            
             Copyright &copy;@DateTime.Now.Year <a href="http://cdeutsch.com/contact">CDeutsch</a>. See the 
-            @Html.ActionLink("Privacy Terms","Privacy","Home")
+            @Html.ActionLink("Privacy Terms", "Privacy", "Home")
             for what we do with your information. <br />
             TV listings provided by <a href="http://thetvdb.com/">TheTVDB.com</a> please consider contributing.
             <div class="hosting">
@@ -77,7 +78,7 @@
         .Add(HtmlHelpers.VirtualScriptPath("ui.checkbox.js"))
         .Add(HtmlHelpers.VirtualScriptPath("json2.min.js"))
         .Add(HtmlHelpers.VirtualScriptPath("watchedit.js"))
-        //.ForceRelease() //comment in to enable compression.
+            //.ForceRelease() //comment in to enable compression.
         .Render(HtmlHelpers.VirtualScriptPath("combined_#.js"))
     )
     @RenderSection("scriptFiles", false)

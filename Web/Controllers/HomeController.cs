@@ -4,27 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web.Models;
-using Web.Infrastructure.Session;
+using Web.Infrastructure.FormsAuthenticationService;
 
 namespace Web.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
+        public IFormsAuthenticationService FormsAuthService { get; set; }
+
         SiteDB _db;
-        IUserSession _userSession;
+        UserActivity _log;
 
         protected long CurrentUserId { get; set; }
 
-        public HomeController(IUserSession UserSession)
+        public HomeController(IFormsAuthenticationService FormsAuthService)
         {
             _db = new SiteDB();
-            _userSession = UserSession;
+            _log = new UserActivity(_db);
+
+            this.FormsAuthService = FormsAuthService;
 
             //since CurrentUserId is used a lot save it in a variable right away for easier to read code.
             if (System.Web.HttpContext.Current.Request.IsAuthenticated)
             {
-                CurrentUserId = _userSession.GetCurrentUserId();
+                CurrentUserId = FormsAuthService.GetCurrentUserId();
             }
         }
 

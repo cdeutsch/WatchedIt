@@ -9,11 +9,15 @@ Because my fiance keeps watching the series we like ahead of me so Boxee's "watc
 
 ## History ##
 
+### 3/25/2011 ###
+
+* Added Twitter Login option.
+* Updated to latest version of MVC3 Boilerplate.
+
 ### 3/23/2011 ###
 
 * Updated to use MVC3 Boilerplate
 
 ## Road Map ##
 
-* Add Twitter authentication option.
 * Add jQuery Mobile View option.
