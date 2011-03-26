@@ -144,7 +144,7 @@
     <Content Include="Content\bp.css" />
     <Content Include="Content\bp_ie.css" />
     <Content Include="Content\bp_print.css" />
-    <Content Include="Content\combined_AB924EC5C0160F2199C3AEC37CABC50D.css" />
+    <Content Include="Content\combined_555E6CB6C2AAA0BA97150BA52C95DE3A.css" />
     <Content Include="Content\fonts\SIL Open Font License 1.1.txt" />
     <Content Include="Content\Images\accepted.png" />
     <Content Include="Content\Images\bg.png" />
@@ -187,7 +187,9 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\ui.checkbox.js" />
     <Content Include="Scripts\watchedit.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
