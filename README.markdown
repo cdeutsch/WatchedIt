@@ -9,6 +9,10 @@ Because my fiance keeps watching the series we like ahead of me so Boxee's "watc
 
 ## History ##
 
+### 3/26/2011 ###
+
+* Updated Twitter login to use "authenticate" instead of "authorize" so you won't be re-prompted to "allow" if you already have done so.
+
 ### 3/25/2011 ###
 
 * Added Twitter Login option.

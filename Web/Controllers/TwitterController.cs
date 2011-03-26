@@ -41,7 +41,8 @@ namespace Web.Controllers
 
         public ActionResult Login()
         {
-            
+            //TODO: move all this logic outside the controller?
+
             var client = new RestClient(baseUrl);
 
             //get a token
@@ -58,7 +59,7 @@ namespace Web.Controllers
             TokenManager.StoreNewRequestToken(oauth_token, oauth_token_secret);
 
             //get authorize token
-            request = new RestRequest("oauth/authorize");
+            request = new RestRequest("oauth/authenticate");
             request.AddParameter("oauth_token", oauth_token);
             var url = client.BuildUri(request).ToString();
             
@@ -70,6 +71,8 @@ namespace Web.Controllers
 
         public ActionResult Callback(string oauth_token, string oauth_verifier)
         {
+            //TODO: move all this logic outside the controller?
+
             var client = new RestClient(baseUrl);
 
             //verify callback from twitter.
